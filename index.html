@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Stree: a women's health companion. Your body. Your questions. Your space. (Preview with sample content, not medical advice.)">
+<style>[hidden]{display:none!important}:root{color-scheme:light}</style>
+<title>Stree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sticky top bar (tab bar on phones), one scrolling view at a time.
+   Pale pink canvas, white cards, warm beige band, palette pastels (pink, orchid, lavender, lilac, mist)
+   as fills, deep plum for text, rose for emphasis. Single light theme by design. */
+:root{
+  --bg:#FFF5F9;
+  --surface:#FFFFFF;
+  --blush:#FDE7F0;
+  --sand:#F8EEE8;
+  --pink:#F4B6CF;
+  --pink-hover:#EEA2C3;
+  --orchid:#E099DB;
+  --lavender:#B19ADE;
+  --lilac:#C5BDE6;
+  --mist:#D8D9EB;
+  --ink:#3B2447;
+  --ink-soft:#6A5476;
+  --rose-ink:#A3366F;
+  --line:#F1D9E5;
+  --focus:#6D4FC2;
+  --font-display:'Fraunces','Iowan Old Style',Georgia,serif;
+  --font-body:'Figtree',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--font-body);-webkit-font-smoothing:antialiased;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+@media(min-width:900px){body{padding-bottom:0}}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--ink-soft)}
+.eyebrow{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-ink);font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* preview strip + top bar */
+.strip{background:var(--ink);color:#fff;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:64px}
+.brand{display:flex;align-items:center;gap:.55rem;text-decoration:none;font:500 1.6rem var(--font-display);letter-spacing:-.02em}
+.brand svg{width:30px;height:30px}
+.nav{display:none;gap:.2rem}
+.nav a{padding:.5rem .9rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.93rem;color:var(--ink-soft)}
+.nav a:hover{background:var(--blush);color:var(--ink)}
+.nav a[aria-current=page]{background:var(--pink);color:var(--ink)}
+.top-cta{display:none}
+@media(min-width:900px){.nav{display:flex}.top-cta{display:inline-flex}}
+
+/* buttons, chips */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1.5px solid transparent;border-radius:999px;padding:.7rem 1.25rem;font-weight:700;font-size:.95rem;text-decoration:none;line-height:1.2;transition:background .15s,transform .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-primary{background:var(--pink);color:var(--ink)}
+.btn-primary:hover{background:var(--pink-hover)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#503061}
+.btn-ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--pink);background:var(--blush)}
+.btn-sm{padding:.45rem .9rem;font-size:.85rem}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:.45rem .95rem;font-weight:600;font-size:.88rem;white-space:nowrap}
+.chip:hover{border-color:var(--pink);background:var(--blush)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;background:var(--mist);color:var(--ink)}
+.link{font-weight:700;color:var(--rose-ink);text-decoration:none;background:none;border:0;padding:.2rem 0}
+.link:hover{text-decoration:underline}
+
+/* hero */
+.hero{display:grid;gap:2rem;align-items:center;padding-block:2rem 1.5rem}
+.hero h1{font-size:clamp(2.1rem,5.6vw,3.7rem);line-height:1.06;margin:.6rem 0 1rem}
+.hero h1 em{font-style:italic;color:var(--rose-ink)}
+.hero .lead{font-size:1.1rem;color:var(--ink-soft);max-width:34rem;margin-bottom:1.5rem}
+.askbox{display:flex;gap:.5rem;align-items:center;background:var(--surface);border:1.5px solid var(--pink);border-radius:999px;padding:.35rem .35rem .35rem 1.15rem;box-shadow:0 10px 30px -14px rgba(163,54,111,.45);max-width:34rem}
+.askbox:focus-within{border-color:var(--lavender);box-shadow:0 0 0 3px rgba(177,154,222,.45)}
+.askbox input{flex:1;min-width:0;border:0;background:transparent;font-size:1rem;padding:.5rem 0}
+.askbox input:focus{outline:none}
+.askbox input::placeholder{color:#8d7a98}
+.try{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-top:1rem;font-size:.88rem;color:var(--ink-soft)}
+.hero-vis{display:flex;justify-content:center;gap:.9rem;padding:1.4rem;background:linear-gradient(160deg,var(--blush),var(--mist));border-radius:32px}
+.hero-vis .vcard{flex:1 1 0;max-width:190px}
+.hero-vis .vcard:nth-child(2){margin-top:2.2rem}
+@media(min-width:880px){.hero{grid-template-columns:1.1fr .9fr;padding-block:3.2rem 2rem}}
+
+/* sections */
+.sec{padding-block:2.2rem 0}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
+.sec-h h2{font-size:clamp(1.55rem,3.4vw,2.1rem);line-height:1.15}
+.sec-h p{color:var(--ink-soft);margin-top:.25rem}
+.two{display:grid;gap:1rem}
+@media(min-width:800px){.two{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:1.1rem}
+.card h3{font-size:1.15rem;margin-bottom:.5rem}
+.card.soft{background:var(--mist);border-color:var(--mist)}
+.card.alert{background:var(--blush);border-color:var(--pink)}
+.card ul{margin:0;padding-left:1.1rem;display:grid;gap:.35rem;font-size:.92rem}
+
+/* daily cards */
+.tip{background:var(--sand);border-color:#EEDDD2;display:flex;flex-direction:column;gap:.7rem;align-items:flex-start}
+.tip-t{font:400 1.25rem/1.35 var(--font-display)}
+.moods{display:flex;gap:.4rem;flex-wrap:wrap;margin:.7rem 0}
+.ci-msg{background:var(--bg);border-left:4px solid var(--orchid);border-radius:4px 14px 14px 4px;padding:.6rem .8rem;font-size:.92rem;margin-bottom:.7rem}
+.week{display:flex;gap:.55rem;margin:.4rem 0 .3rem}
+.day{display:flex;flex-direction:column;align-items:center;gap:.2rem;font-size:.7rem;font-weight:700;color:var(--ink-soft)}
+.day i{width:20px;height:20px;border-radius:50%;background:var(--mist)}
+.day.on i{background:var(--orchid)}
+
+/* topic tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+@media(min-width:900px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:.35rem;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:1.05rem;transition:transform .2s,border-color .2s,box-shadow .2s;min-width:0}
+.tile:hover{transform:translateY(-3px);border-color:var(--pink);box-shadow:0 14px 30px -18px rgba(163,54,111,.5)}
+.tile:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.ico{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;margin-bottom:.45rem;background:var(--tint,var(--pink));flex:none}
+.ico svg{width:24px;height:24px;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tile h3{font-size:1.1rem;line-height:1.2}
+.tile p{font-size:.85rem;color:var(--ink-soft);line-height:1.4}
+.tile .n{margin-top:auto;padding-top:.4rem;font-size:.82rem;font-weight:700;color:var(--rose-ink)}
+
+/* video cards */
+.rail{display:flex;gap:.85rem;overflow-x:auto;scroll-snap-type:x proximity;padding:.3rem .2rem 1rem;scrollbar-width:thin}
+.rail .vcard{flex:0 0 172px;scroll-snap-align:start}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.9rem}
+.vcard{all:unset;box-sizing:border-box;position:relative;display:block;aspect-ratio:9/14;border-radius:22px;overflow:hidden;cursor:pointer;background:linear-gradient(170deg,var(--g1),var(--g2));isolation:isolate;transition:transform .2s,box-shadow .2s;min-width:0}
+.vcard:hover{transform:translateY(-3px);box-shadow:0 16px 30px -18px rgba(109,79,194,.6)}
+.vcard:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.vc-av{position:absolute;left:-9%;width:118%;top:2%;z-index:0}
+.vc-av svg{display:block;width:100%;height:auto}
+.vc-tag,.vc-dur{position:absolute;top:9px;z-index:2;font-size:.68rem;font-weight:700;background:rgba(255,255,255,.88);color:var(--ink);padding:.18rem .5rem;border-radius:999px;font-variant-numeric:tabular-nums;max-width:68%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vc-tag{left:9px}
+.vc-dur{right:9px}
+.vc-q{position:absolute;left:8px;right:8px;bottom:8px;z-index:2;display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.94);border-radius:15px;padding:.55rem .55rem .55rem .7rem;font-size:.83rem;font-weight:600;line-height:1.3;color:var(--ink)}
+.vc-q span{flex:1;min-width:0}
+.vc-q i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--pink);display:grid;place-items:center}
+.vc-q svg{width:13px;height:13px;fill:var(--ink);margin-left:2px}
+
+/* myth vs medicine */
+.band{background:var(--sand);margin-top:2.6rem;padding-block:2.2rem 2.4rem}
+.myths{display:grid;gap:.7rem;align-items:start}
+@media(min-width:800px){.myths{grid-template-columns:1fr 1fr}}
+.myths details{background:var(--surface);border:1px solid #EEDDD2;border-radius:18px;padding:0}
+.myths summary{list-style:none;cursor:pointer;padding:.9rem 3rem .9rem 1rem;position:relative;font-weight:600;display:grid;gap:.15rem;border-radius:18px}
+.myths summary::-webkit-details-marker{display:none}
+.myths summary::after{content:"";position:absolute;right:1.1rem;top:1.15rem;width:10px;height:10px;border-right:2px solid var(--rose-ink);border-bottom:2px solid var(--rose-ink);transform:rotate(45deg);transition:transform .2s}
+.myths details[open] summary::after{transform:rotate(-135deg);top:1.4rem}
+.myths summary:focus-visible{outline:3px solid var(--focus)}
+.myths .lab{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rose-ink);font-weight:700}
+.myths .real{padding:0 1rem 1rem;display:grid;gap:.4rem;font-size:.95rem}
+.myths .real .lab{color:#2f7a5a}
+
+/* ask-without-shame banner */
+.shame{background:var(--pink);border-radius:28px;padding:1.5rem;display:grid;gap:1rem}
+.shame h2{font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.12}
+.shame .chip{border-color:transparent}
+@media(min-width:800px){.shame{grid-template-columns:1.2fr 1fr;align-items:center;padding:2rem}}
+
+/* trust */
+.trust{display:grid;gap:1.4rem}
+.trust>div{border-top:3px solid var(--pink);padding-top:.9rem}
+.trust>div:nth-child(2){border-color:var(--orchid)}
+.trust>div:nth-child(3){border-color:var(--lavender)}
+.trust h3{font-size:1.2rem;margin-bottom:.3rem}
+.trust p{color:var(--ink-soft);font-size:.95rem}
+.soon{font:700 .66rem var(--font-body);letter-spacing:.07em;text-transform:uppercase;background:var(--mist);padding:.15rem .45rem;border-radius:99px;vertical-align:middle;margin-left:.3rem;color:var(--ink)}
+@media(min-width:760px){.trust{grid-template-columns:repeat(3,1fr);gap:2rem}}
+
+/* community */
+.layout{display:grid;gap:1.4rem;align-items:start}
+@media(min-width:920px){.layout{grid-template-columns:minmax(0,1fr) 310px}}
+.feed{display:grid;gap:.9rem}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:1rem 1.1rem}
+.p-h{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none;color:var(--ink);background:var(--pink)}
+.av svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round}
+.p-who{min-width:0}
+.p-who b{display:block;line-height:1.2}
+.p-who span{font-size:.8rem;color:var(--ink-soft)}
+.tag{margin-left:auto;font-size:.72rem;font-weight:700;background:var(--blush);color:var(--rose-ink);padding:.2rem .6rem;border-radius:99px;white-space:nowrap}
+.p-t{white-space:pre-wrap;overflow-wrap:anywhere}
+.p-a{display:flex;gap:.5rem;margin-top:.85rem;flex-wrap:wrap;align-items:center}
+.p-a .spacer{margin-left:auto}
+.pill-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .85rem;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:.85rem;color:var(--ink)}
+.pill-btn svg{width:16px;height:16px;fill:none;stroke:var(--rose-ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pill-btn:hover{background:var(--blush);border-color:var(--pink)}
+.pill-btn[aria-pressed=true]{background:var(--blush);border-color:var(--pink)}
+.pill-btn[aria-pressed=true] svg{fill:var(--rose-ink)}
+.replies{margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--line);display:grid;gap:.7rem}
+.reply{display:flex;gap:.6rem}
+.reply .av{width:30px;height:30px;font-size:.8rem}
+.reply .bub{background:var(--bg);border-radius:14px;padding:.5rem .8rem;font-size:.92rem;min-width:0;overflow-wrap:anywhere}
+.reply .bub b{font-size:.82rem}
+.reply-form{display:flex;gap:.5rem}
+.field{width:100%;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:.6rem .8rem}
+.reply-form input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:.6rem .8rem}
+.reply-form input:focus,.field:focus{outline:none;border-color:var(--lavender);box-shadow:0 0 0 3px rgba(177,154,222,.35)}
+.composer,.askform{background:var(--surface);border:1.5px solid var(--pink);border-radius:24px;padding:1rem 1.1rem;display:grid;gap:.7rem}
+.askform{box-shadow:0 12px 32px -20px rgba(163,54,111,.5)}
+.composer textarea,.askform textarea{width:100%;resize:vertical;min-height:84px;border:0;background:transparent;font-size:1rem;padding:0}
+.composer textarea:focus,.askform textarea:focus{outline:none}
+.composer:focus-within,.askform:focus-within{border-color:var(--lavender)}
+.c-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.c-row select{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:.45rem .8rem;font-size:.88rem;max-width:100%}
+.check{display:inline-flex;align-items:center;gap:.4rem;font-size:.88rem;color:var(--ink-soft);cursor:pointer}
+.check input{accent-color:var(--rose-ink);width:16px;height:16px}
+.c-row .btn{margin-left:auto}
+.side{display:grid;gap:.9rem}
+.empty{text-align:center;padding:2rem 1rem;color:var(--ink-soft);background:var(--surface);border:1px dashed var(--pink);border-radius:22px;display:grid;gap:.8rem;justify-items:center}
+
+/* ask */
+.page-h{padding-block:2rem 1.2rem}
+.page-h h1{font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.1;margin:.4rem 0 .6rem}
+.page-h h1 em{font-style:italic;color:var(--rose-ink)}
+.page-h p{color:var(--ink-soft);max-width:38rem}
+.thread{display:grid;gap:1.4rem;margin-top:1.4rem}
+.exch{display:grid;gap:.7rem}
+.q-b{justify-self:end;max-width:88%;background:var(--pink);border-radius:20px 20px 6px 20px;padding:.65rem 1rem;font-weight:500;overflow-wrap:anywhere}
+.q-lab{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:.1rem}
+.ans{background:var(--surface);border:1px solid var(--line);border-radius:6px 22px 22px 22px;padding:1.1rem;display:grid;gap:.85rem}
+.ans-h{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.ans-t{font-size:1.02rem}
+.help{background:var(--bg);border-left:4px solid var(--orchid);border-radius:4px 14px 14px 4px;padding:.65rem .9rem;font-size:.92rem}
+.help b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rose-ink);margin-bottom:.1rem}
+.srcs{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;font-size:.82rem;color:var(--ink-soft)}
+.src{display:inline-flex;align-items:center;gap:.3rem;background:var(--mist);color:var(--ink);font-weight:700;font-size:.78rem;padding:.2rem .6rem;border-radius:99px}
+.src svg{width:13px;height:13px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ans-act{display:flex;gap:.5rem;flex-wrap:wrap}
+.rel{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--ink-soft)}
+.rel .chip{font-size:.8rem;padding:.35rem .75rem;white-space:normal;text-align:left}
+.pending{display:flex;gap:.7rem;align-items:center;color:var(--ink-soft)}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--orchid);animation:bl 1s infinite ease-in-out}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}}
+.pop{display:grid;gap:.2rem}
+.pop button{all:unset;box-sizing:border-box;cursor:pointer;font-size:.92rem;font-weight:500;padding:.5rem .7rem;border-radius:12px;display:flex;justify-content:space-between;gap:.6rem}
+.pop button:hover{background:var(--blush)}
+.pop button:focus-visible{outline:3px solid var(--focus)}
+.pop small{color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* explore */
+.searchrow{margin-bottom:.8rem}
+.t-sec{padding-block:1.4rem 0}
+.t-head{display:flex;gap:.9rem;align-items:center;margin-bottom:1rem}
+.t-head .ico{margin:0}
+.t-head h2{font-size:1.5rem;line-height:1.15}
+.t-head p{color:var(--ink-soft);font-size:.95rem}
+
+/* profile */
+.who{display:flex;gap:1rem;align-items:center;margin-bottom:1rem}
+.who .av{width:64px;height:64px;font-size:1.6rem;background:var(--lilac)}
+.who .av svg{width:32px;height:32px}
+.form-row{display:grid;gap:.4rem;margin-bottom:1rem}
+.form-row>label,.form-row>.lbl{font-weight:700;font-size:.9rem}
+.hint{font-size:.85rem;color:var(--ink-soft)}
+.switch{display:flex;gap:.75rem;align-items:flex-start;cursor:pointer;margin-bottom:.9rem}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch .tr{flex:none;width:44px;height:26px;border-radius:99px;background:var(--mist);position:relative;transition:background .2s;margin-top:.1rem}
+.switch .tr::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(59,36,71,.3);transition:transform .2s}
+.switch input:checked+.tr{background:var(--rose-ink)}
+.switch input:checked+.tr::after{transform:translateX(18px)}
+.switch input:focus-visible+.tr{outline:3px solid var(--focus);outline-offset:2px}
+.switch b{display:block;font-size:.95rem}
+.list{display:grid;gap:.35rem}
+.list button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;gap:.8rem;padding:.55rem .75rem;border-radius:12px;background:var(--bg);font-size:.92rem;font-weight:600}
+.list button:hover{background:var(--blush)}
+.list button:focus-visible{outline:3px solid var(--focus)}
+.list small{color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:500}
+.datapre{margin:.7rem 0 0;max-height:240px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:.7rem;font-size:.78rem;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* footer + tab bar */
+.foot{margin-top:3rem;border-top:1px solid var(--line);padding-block:1.5rem 2.2rem;font-size:.85rem;color:var(--ink-soft)}
+.foot p+p{margin-top:.4rem}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:.35rem max(4px,env(safe-area-inset-right,0px)) calc(.35rem + env(safe-area-inset-bottom,0px)) max(4px,env(safe-area-inset-left,0px))}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:.1rem;text-decoration:none;font-size:.68rem;font-weight:700;color:var(--ink-soft);padding:.15rem 0;min-width:0}
+.tabbar a span.i{width:48px;height:30px;display:grid;place-items:center;border-radius:999px}
+.tabbar svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabbar a[aria-current=page]{color:var(--ink)}
+.tabbar a[aria-current=page] span.i{background:var(--pink)}
+@media(min-width:900px){.tabbar{display:none}}
+
+/* video modal */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.m-back{position:absolute;inset:0;background:rgba(59,36,71,.55);backdrop-filter:blur(3px)}
+.m-card{position:relative;background:var(--surface);border-radius:28px;width:100%;max-width:880px;max-height:100%;overflow:auto;padding:1.1rem}
+.m-close{position:absolute;top:.7rem;right:.7rem;z-index:6;width:38px;height:38px;border-radius:50%;border:0;background:var(--blush);display:grid;place-items:center}
+.m-close svg{width:18px;height:18px;stroke:var(--ink);stroke-width:2;stroke-linecap:round;fill:none}
+.m-grid{display:grid;gap:1.2rem}
+@media(min-width:760px){.m-grid{grid-template-columns:auto minmax(0,1fr);gap:1.6rem;padding:.4rem}}
+.m-media{--sh:min(60vh,540px);--sh:min(60dvh,540px);display:flex;justify-content:center;align-items:flex-start}
+.stage{position:relative;overflow:hidden;border-radius:24px;height:var(--sh);width:calc(var(--sh)*9/16);background:linear-gradient(170deg,var(--g1),var(--g2));cursor:pointer;flex:none;isolation:isolate}
+.s-av{position:absolute;left:-8%;width:116%;top:7%;z-index:1}
+.s-av svg{display:block;width:100%;height:auto}
+.s-top{position:absolute;top:12px;left:12px;right:12px;z-index:3;display:flex;justify-content:space-between;gap:.4rem}
+.s-top span{background:rgba(255,255,255,.9);padding:.22rem .6rem;border-radius:99px;font-size:.7rem;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.s-cap{position:absolute;left:12px;right:12px;bottom:34px;z-index:3;background:rgba(59,36,71,.9);color:#fff;border-radius:16px;padding:.7rem .85rem;font-size:.93rem;line-height:1.4;text-align:center;min-height:5.2em;display:flex;align-items:center;justify-content:center}
+.s-bar{position:absolute;left:14px;right:14px;bottom:15px;height:5px;border-radius:99px;background:rgba(255,255,255,.75);z-index:3}
+.s-bar i{display:block;height:100%;width:0;background:var(--rose-ink);border-radius:inherit}
+.s-play{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;z-index:4;box-shadow:0 8px 24px -8px rgba(59,36,71,.5);opacity:0;pointer-events:none;transition:opacity .2s}
+.s-play svg{width:26px;height:26px;fill:var(--ink);margin-left:3px}
+.stage.paused .s-play{opacity:1}
+.mouth{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(.55)}
+.stage.speaking .mouth{animation:talk .32s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.35)}}
+.m-info{display:grid;gap:.9rem;align-content:start;min-width:0;padding-right:2.2rem}
+.m-info h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.15}
+.trs{list-style:none;margin:0;padding:0;display:grid;gap:.25rem}
+.trs button{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;padding:.4rem .7rem;border-radius:12px;font-size:.95rem;color:var(--ink-soft);border-left:3px solid transparent}
+.trs button:hover{background:var(--blush)}
+.trs button:focus-visible{outline:3px solid var(--focus)}
+.trs button.on{background:var(--blush);color:var(--ink);border-left-color:var(--rose-ink);font-weight:600}
+.fb{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;font-size:.9rem}
+.more{display:grid;gap:.3rem}
+.more button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;gap:.8rem;padding:.55rem .75rem;border-radius:12px;background:var(--bg);font-size:.92rem;font-weight:600}
+.more button:hover{background:var(--blush)}
+.more button:focus-visible{outline:3px solid var(--focus)}
+.more small{color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:759px){.m-info{padding-right:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="strip">Preview build. Sample content for illustration, not medical advice.</div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#home" data-route="home" aria-label="Stree home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c4.2 4.2 5.2 9.8 0 18-5.2-8.2-4.2-13.8 0-18z" fill="#E099DB"/><path d="M5 11c5.600-.3 9.800 3.800 11 11-6.200.4-10.800-3.600-11-11z" fill="#F4B6CF"/><path d="M27 11c-5.600-.3-9.800 3.800-11 11 6.200.4 10.800-3.600 11-11z" fill="#B19ADE"/><path d="M6 24c3 3.200 6.500 4.200 10 4.200S23 27.200 26 24c-3.500 1-6.500 1.400-10 1.400S9.500 25 6 24z" fill="#C5BDE6"/></svg>
+      <span>Stree</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-route="home">Home</a>
+      <a href="#explore" data-route="explore">Explore</a>
+      <a href="#ask" data-route="ask">Ask HerAI</a>
+      <a href="#community" data-route="community">Community</a>
+      <a href="#profile" data-route="profile">My Profile</a>
+    </nav>
+    <a class="btn btn-primary top-cta" href="#ask" data-route="ask">Ask a question</a>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Stree</b>. Your body. Your questions. Your space.</p>
+    <p>This is a preview of a women's health companion. Answers, videos and conversations shown here are samples for illustration and are not medical advice. If you think you are having a medical emergency, contact your local emergency number right away.</p>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Tabs">
+  <a href="#home" data-route="home"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg></span>Home</a>
+  <a href="#explore" data-route="explore"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></span>Explore</a>
+  <a href="#ask" data-route="ask"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></span>Ask HerAI</a>
+  <a href="#community" data-route="community"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.700 6 5M15 14.2c3 0 6 1.300 6 4.800"/></svg></span>Community</a>
+  <a href="#profile" data-route="profile"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3.500"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg></span>Profile</a>
+</nav>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ================= content (sample, not clinically reviewed) ================= */
+const ICON={
+  cycle:'<path d="M12 3c3.2 4 6 7 6 10.2A6 6 0 0 1 6 13.2C6 10 8.8 7 12 3z"/>',
+  pcos:'<circle cx="9" cy="9" r="3"/><circle cx="16" cy="11" r="2.2"/><circle cx="11" cy="16.5" r="2.4"/><circle cx="17" cy="17" r="1.2"/>',
+  sexual:'<path d="M12 20s-7-4.3-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.7-7 10-7 10z"/>',
+  fertility:'<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>',
+  pregnancy:'<path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.500-5-6-5 0 3.500 2.500 5 6 5z"/>',
+  postnatal:'<path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M8 8c1-2 3-3 4-3s3 1 4 3"/>',
+  menopause:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>',
+  everyday:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8v8M8 12h8"/>'
+};
+
+const TOPICS=[
+{id:'cycle',name:'Menstrual health & periods',short:'Periods',tint:'#F4B6CF',blurb:'Cycle basics, pain, heavy bleeding, PMS, missed periods',
+ p:{skin:'#E7B08C',hair:'#2B1B2E',top:'#C85A98',style:'long',bindi:true,bg:['#F9D3E3','#E4D7F5']},
+ v:[
+ {q:`How long is a normal menstrual cycle?`,d:42,kw:['cycle','length','normal','days','regular','irregular','menstrual'],
+  a:[`Count from the first day of one period to the first day of the next.`,`For most adults that is anywhere from 21 to 35 days.`,`Bleeding usually lasts two to seven days.`,`A few days of difference from month to month is normal.`],
+  flag:`Your cycles are often shorter than 21 or longer than 35 days, or a period lasts more than 7 days.`,src:['ACOG','NHS']},
+ {q:`Why is my period late?`,d:48,kw:['late','missed','delayed','period','miss','negative'],
+  a:[`If you could be pregnant, a pregnancy test is the first step.`,`Stress, sudden weight change, intense exercise and travel can all delay ovulation.`,`Thyroid problems, PCOS and breastfeeding can also change your cycle.`,`Missing three periods in a row is worth a doctor's visit.`],
+  flag:`You have missed three periods in a row, or a late period comes with severe pain.`,src:['NHS','ACOG']},
+ {q:`Is period pain normal?`,d:36,kw:['pain','cramps','cramp','painful','hurts','period'],
+  a:[`Mild to moderate cramps are common, caused by the womb contracting.`,`Heat, gentle movement and over-the-counter pain relief taken as directed can help.`,`Pain that stops you from school, work or daily life is not something to put up with.`,`It can be a sign of conditions like endometriosis or fibroids.`],
+  flag:`Pain is severe, getting worse over time, or does not ease with usual pain relief.`,src:['ACOG','NHS']},
+ {q:`When is a period too heavy?`,d:40,kw:['heavy','bleeding','clots','flow','soaking','period'],
+  a:[`Soaking through a pad or tampon every hour for several hours is too heavy.`,`So is needing to double up protection, or passing clots about 2.5 cm (1 inch) across or larger.`,`Bleeding that lasts longer than seven days also needs checking.`,`Heavy periods are common and treatable, and they can cause low iron.`],
+  flag:`You soak through protection every hour, feel dizzy or breathless, or bleed for more than 7 days.`,src:['ACOG','CDC']},
+ {q:`What is PMS, and when is it more than PMS?`,d:46,kw:['pms','pmdd','mood','premenstrual','irritable','bloating','emotional'],
+  a:[`PMS means physical and emotional changes in the week or two before your period, like bloating, tender breasts, low mood and irritability.`,`Most people notice some changes, and they ease once bleeding starts.`,`PMDD is a more severe form, with intense mood symptoms that disrupt work or relationships.`,`Tracking your symptoms for two cycles helps your doctor tell the difference.`],
+  flag:`Mood symptoms before your period are severe, or you have thoughts of harming yourself.`,src:['ACOG','NHS']}
+]},
+{id:'pcos',name:'PCOS & hormonal health',short:'PCOS',tint:'#C5BDE6',blurb:'PCOS, endometriosis, insulin resistance, hormones',
+ p:{skin:'#F0C2A0',hair:'#4A2A22',top:'#D673B8',style:'bob',bg:['#F4C3DA','#D8D9EB']},
+ v:[
+ {q:`What is PCOS?`,d:46,kw:['pcos','pcod','polycystic','hormone','ovary','cysts'],
+  a:[`PCOS is a common hormone condition that affects about 1 in 10 women of reproductive age.`,`It can cause irregular or missed periods, acne, extra hair growth or thinning scalp hair.`,`The "cysts" are small follicles, and you can have PCOS without them.`,`It is lifelong, but the symptoms can be managed well.`],
+  flag:`Your periods stay irregular for several months, or you notice new acne or hair changes.`,src:['WHO','NHS']},
+ {q:`How is PCOS diagnosed?`,d:41,kw:['diagnosis','diagnosed','test','ultrasound','pcos','tests'],
+  a:[`Doctors usually diagnose PCOS when two of three things are present.`,`Irregular or missed periods.`,`Signs of high androgen hormones, like acne or extra hair, or raised levels on a blood test.`,`Ovaries that look polycystic on an ultrasound.`,`Your doctor will also rule out thyroid problems that can look similar.`],
+  flag:`You have symptoms but have not had blood tests or a scan.`,src:['NHS','ACOG']},
+ {q:`Can I get pregnant with PCOS?`,d:39,kw:['pregnant','pregnancy','conceive','fertility','pcos','trying'],
+  a:[`Yes. Many people with PCOS conceive, often without help.`,`Ovulation can be irregular, so it may take longer.`,`Treatments that help you ovulate are available if you need them.`,`If your cycles are very irregular, or you have been trying for 6 to 12 months, talk to a doctor.`],
+  flag:`You are trying to conceive and your periods are very irregular.`,src:['ACOG','NHS']},
+ {q:`What actually helps manage PCOS?`,d:52,kw:['manage','diet','treatment','weight','exercise','pcos','help','lifestyle','insulin'],
+  a:[`There is no single PCOS diet, but regular meals with fibre and protein help steady blood sugar.`,`Movement you enjoy, good sleep and stress care make a real difference.`,`If you carry extra weight, losing even 5 to 10 percent can improve your cycles.`,`Medicines can help with periods, acne, hair growth or insulin resistance, so ask your doctor.`],
+  flag:`Symptoms are affecting your mood, sleep or daily life.`,src:['NHS','WHO']},
+ {q:`What is endometriosis?`,d:48,kw:['endometriosis','endo','pelvic','pain','period','bowel'],
+  a:[`Tissue similar to the womb lining grows in places it should not, like the ovaries or bowel.`,`It can cause painful or heavy periods, pain during sex, bowel or bladder pain and tiredness.`,`It often takes years to diagnose, so track your symptoms and bring notes to your appointment.`,`Treatments can reduce the pain, so you do not have to just cope.`],
+  flag:`Period pain interferes with daily life, or you have had pelvic pain for months.`,src:['WHO','ACOG']}
+]},
+{id:'sexual',name:'Sexual health & wellness',short:'Sexual health',tint:'#E099DB',blurb:'Contraception, infections, pain, discharge',
+ p:{skin:'#C98B64',hair:'#3A2230',top:'#8F6BD1',style:'curly',bg:['#EAD4F3','#F9D3E3']},
+ v:[
+ {q:`Does the pill protect against STIs?`,d:30,kw:['pill','sti','std','condom','protection','infection','contraception','birth','control'],
+  a:[`No. Birth control pills prevent pregnancy, not infections.`,`Condoms are the only method that also lowers your risk of most STIs.`,`Many STIs have no symptoms, so regular testing matters if you have new or multiple partners.`],
+  flag:`You notice unusual discharge, sores or pain when you pee, or think you have been exposed.`,src:['WHO','CDC']},
+ {q:`Is pain during sex normal?`,d:50,kw:['pain','sex','intercourse','dyspareunia','painful','vaginismus'],
+  a:[`It is common, but it is not something you have to put up with.`,`Causes include not enough arousal or lubrication, infections, muscle tightness and hormone changes.`,`Going slowly, using lubricant and talking with your partner can help.`,`If it keeps happening, a doctor can find the cause and treat it.`],
+  flag:`The pain keeps coming back, or comes with bleeding or unusual discharge.`,src:['ACOG','NHS']},
+ {q:`What is normal vaginal discharge?`,d:38,kw:['discharge','smell','itching','infection','yeast','bv','vaginal'],
+  a:[`Clear or whitish discharge that changes through your cycle is normal.`,`It is often thicker and stretchy around ovulation.`,`A green or grey colour, a strong fishy smell, itching or burning can mean an infection.`,`Please avoid douching, as it can upset your natural balance.`],
+  flag:`Discharge changes colour or smell, or comes with itching, burning or pelvic pain.`,src:['NHS','ACOG']},
+ {q:`How fast do I need emergency contraception?`,d:44,kw:['emergency','contraception','morning','after','pill','unprotected'],
+  a:[`The sooner the better. Most emergency pills work best within 72 hours.`,`Another type, ulipristal, can work up to 5 days after sex.`,`A copper IUD fitted within 5 days is the most effective option.`,`A pharmacist or clinic can help you choose. It will not end an existing pregnancy.`],
+  flag:`It has been more than 5 days, or you are unsure whether you could be pregnant.`,src:['WHO','NHS']}
+]},
+{id:'fertility',name:'Fertility & conception',short:'Fertility',tint:'#F9D3E3',blurb:'Ovulation, fertile window, trying to conceive',
+ p:{skin:'#F0C2A0',hair:'#6B3A2A',top:'#9A62C9',style:'curly',bg:['#F9D9E6','#E0D6F3']},
+ v:[
+ {q:`When do I ovulate?`,d:45,kw:['ovulation','ovulate','fertile','egg','conceive','trying','window'],
+  a:[`Ovulation usually happens about 12 to 14 days before your next period starts.`,`In a 28-day cycle that is around day 14, but it shifts if your cycle is shorter or longer.`,`Clear, stretchy discharge and a mild one-sided twinge are common signs.`,`Your most fertile time is the five days before ovulation plus ovulation day itself.`],
+  flag:`Your periods are very irregular and you are trying to conceive.`,src:['NHS','ACOG']},
+ {q:`How long should we try before seeing a doctor?`,d:40,kw:['trying','conceive','infertility','fertility','months','year','pregnant','long'],
+  a:[`Most couples conceive within a year of regular, unprotected sex.`,`If you are under 35, see a doctor after 12 months of trying.`,`If you are 35 or older, or your cycles are very irregular, do not wait that long. See a doctor after 6 months.`,`Over 40, it is worth getting advice right away.`],
+  flag:`You have very irregular or no periods, a known condition like endometriosis or PCOS, or you are over 40.`,src:['ACOG','NHS']},
+ {q:`Which habits help when trying to conceive?`,d:43,kw:['habits','lifestyle','preconception','conceive','trying','smoking','alcohol','caffeine','folic','planning'],
+  a:[`Start folic acid, ideally at least a month before you try.`,`Aim for balanced meals, regular movement and good sleep.`,`Stopping smoking and avoiding alcohol helps both fertility and pregnancy.`,`A preconception check lets your doctor review your medicines and vaccinations.`],
+  flag:`You take regular medicines or have a long-term condition. Ask before you start trying.`,src:['NHS','WHO']}
+]},
+{id:'pregnancy',name:'Pregnancy',short:'Pregnancy',tint:'#D8D9EB',blurb:'Early signs, food, spotting, vitamins, warning signs',
+ p:{skin:'#F6D2BD',hair:'#7A4B2A',top:'#7E5CA8',style:'bun',bg:['#FBE0EA','#C5BDE6']},
+ v:[
+ {q:`What are the earliest signs of pregnancy?`,d:37,kw:['signs','symptoms','early','pregnant','test','nausea','missed','pregnancy'],
+  a:[`A missed period is the most common first sign.`,`Many people also notice tender breasts, tiredness, nausea and needing to pee more.`,`A home test is most reliable from the first day of your missed period.`,`If it is positive, book a visit with your doctor or midwife.`],
+  flag:`You have a positive test and have not yet booked antenatal care.`,src:['NHS','ACOG']},
+ {q:`Which foods should I avoid while pregnant?`,d:49,kw:['food','foods','eat','avoid','diet','caffeine','coffee','fish','mercury','pregnant','pregnancy'],
+  a:[`Avoid raw or undercooked meat, fish and eggs.`,`Skip unpasteurised milk and soft cheeses made from it.`,`Choose fish low in mercury, and avoid shark, swordfish and king mackerel.`,`No alcohol, and keep caffeine under 200 mg a day, about one 12-ounce coffee.`],
+  flag:`You think you ate something risky and now have a fever or stomach upset.`,src:['ACOG','NHS']},
+ {q:`Is light spotting in early pregnancy normal?`,d:34,kw:['spotting','bleeding','blood','early','pregnancy','miscarriage','pregnant'],
+  a:[`Light spotting can happen in the first trimester and is often harmless.`,`Bleeding that is heavy like a period, or comes with pain, is different.`,`Call your doctor or go to urgent care if you have either, or if you feel dizzy or faint.`],
+  flag:`Bleeding is heavy, or comes with pain, dizziness or a fever.`,src:['NHS','ACOG']},
+ {q:`When should I start folic acid?`,d:33,kw:['folic','acid','vitamin','supplement','planning','prenatal','vitamins'],
+  a:[`Ideally at least one month before you try to conceive.`,`Take 400 micrograms every day until the end of week 12.`,`Some people need a higher dose, for example with diabetes or a past neural tube condition, so check with your doctor.`],
+  flag:`You take epilepsy medicine, have diabetes, or a past pregnancy was affected by a neural tube condition.`,src:['NHS','WHO']}
+]},
+{id:'postnatal',name:'Postpartum & motherhood',short:'Postpartum',tint:'#D8D9EB',blurb:'Recovery, bleeding, mood, pelvic floor, getting active',
+ p:{skin:'#8D5A3B',hair:'#1F1A2B',top:'#E099DB',style:'curly',bg:['#E6D9F6','#FAD6E6']},
+ v:[
+ {q:`How long does bleeding last after birth?`,d:43,kw:['bleeding','lochia','postpartum','after','birth','delivery','pads','postnatal'],
+  a:[`Bleeding after birth, called lochia, can last four to six weeks.`,`It starts bright red and heavy, then turns pink or brown, then yellowish white.`,`Use pads, not tampons or cups, until your doctor says it is okay.`],
+  flag:`You soak a pad in an hour, pass large clots, notice a foul smell or have a fever.`,src:['NHS','ACOG']},
+ {q:`Baby blues or postnatal depression?`,d:55,kw:['depression','blues','mood','sad','anxiety','postpartum','postnatal','mental','crying','cry'],
+  a:[`Feeling tearful and overwhelmed in the first two weeks after birth is very common. That is the baby blues.`,`If low mood lasts longer, or comes with hopelessness or trouble bonding, it may be postnatal depression.`,`It is common, it is not your fault, and it is treatable.`,`Tell your doctor, midwife or someone you trust. If you ever think of harming yourself, seek urgent help.`],
+  flag:`Low mood lasts beyond two weeks, or you have thoughts of harming yourself or your baby.`,src:['NHS','WHO']},
+ {q:`When can I exercise after birth?`,d:35,kw:['exercise','workout','gym','pelvic','floor','recovery','c-section','postnatal'],
+  a:[`Gentle walking and pelvic floor exercises can often start in the first days.`,`Wait for your postnatal check, usually around six weeks, before higher-impact exercise.`,`After a C-section or a tear, recovery can take longer, so build up slowly.`],
+  flag:`You leak urine, feel heaviness in your pelvis, or have pain when you exercise.`,src:['NHS','ACOG']},
+ {q:`How do I care for my C-section wound?`,d:41,kw:['csection','c-section','caesarean','cesarean','wound','stitches','scar','surgery'],
+  a:[`Keep the wound clean and dry, and pat it gently after a shower.`,`Wear loose clothes and avoid lifting anything heavier than your baby for the first weeks.`,`Watch for redness, swelling, discharge or a fever.`],
+  flag:`The wound is red, hot or leaking, or you have a fever.`,src:['NHS','ACOG']}
+]},
+{id:'menopause',name:'Menopause & healthy ageing',short:'Menopause',tint:'#B19ADE',blurb:'Perimenopause, hot flushes, bleeding changes',
+ p:{skin:'#E7B08C',hair:'#CFCAD6',top:'#6D5BB5',style:'bob',bg:['#F6DDEB','#D8D9EB']},
+ v:[
+ {q:`What is perimenopause?`,d:47,kw:['perimenopause','menopause','hot','flushes','midlife','change','40s'],
+  a:[`It is the years of change before your periods stop for good, often starting in your 40s.`,`Cycles can become shorter, longer or unpredictable, and you may get hot flushes, poor sleep or mood changes.`,`You reach menopause once you have gone 12 months without a period.`,`The average age is around 51, but it varies a lot.`],
+  flag:`Symptoms disrupt your sleep or work, or you bleed heavily or between periods.`,src:['NHS','WHO']},
+ {q:`How can I ease hot flushes?`,d:44,kw:['hot','flush','flashes','hrt','hormone','therapy','sweats','night','flushes'],
+  a:[`Layers, a cooler bedroom and spotting your triggers, like alcohol or spicy food, can help.`,`Regular exercise and good sleep habits help many people.`,`Hormone therapy works well for many, and it suits some people better than others.`,`A doctor can talk you through the benefits and risks for you.`],
+  flag:`Hot flushes or night sweats are affecting your daily life.`,src:['NHS','WHO']},
+ {q:`Is bleeding after menopause normal?`,d:30,kw:['bleeding','postmenopausal','after','menopause','spotting'],
+  a:[`No. Any bleeding after 12 months without a period should be checked.`,`Often the cause is harmless, like thinning of the vaginal lining.`,`But it is important to rule out other causes, so book a visit soon.`],
+  flag:`Any bleeding after menopause, even just once.`,src:['NHS','ACOG']}
+]},
+{id:'everyday',name:`Everyday women's wellness`,short:'Wellness',tint:'#F4B6CF',blurb:'UTIs, anaemia, breast health, thyroid',
+ p:{skin:'#D9A27E',hair:'#2B1B2E',top:'#D4608F',style:'long',bg:['#DCD3F2','#F8CFE1']},
+ v:[
+ {q:`What are the signs of a UTI?`,d:38,kw:['uti','urinary','pee','burning','bladder','infection','urine'],
+  a:[`A burning feeling when you pee, needing to go often, and cloudy or strong-smelling urine are common signs.`,`Drink water, but do not wait it out, because UTIs usually need antibiotics.`,`Fever, back pain or vomiting can mean the infection has reached your kidneys, which needs urgent care.`],
+  flag:`Fever, back or side pain, vomiting, or blood in your urine.`,src:['NHS','CDC']},
+ {q:`Could my tiredness be low iron?`,d:36,kw:['iron','anaemia','anemia','tired','tiredness','fatigue','dizzy','ferritin','exhausted'],
+  a:[`Low iron is common, especially with heavy periods or pregnancy.`,`Signs include tiredness, pale skin, dizziness, breathlessness and feeling cold.`,`A blood test can confirm it, so check before starting iron tablets.`,`Treatment is simple once you know the cause.`],
+  flag:`You have been exhausted for weeks, or get dizzy or breathless doing ordinary things.`,src:['NHS','WHO']},
+ {q:`When should I get a breast lump checked?`,d:40,kw:['breast','lump','cancer','mammogram','screening','nipple'],
+  a:[`Most breast lumps are not cancer, but any new lump should be checked.`,`Also tell your doctor about skin dimpling, nipple changes or discharge, or pain in one spot that does not go away.`,`Get to know how your breasts normally look and feel, so changes stand out.`,`Screening mammograms start at different ages in different countries, so ask what applies to you.`],
+  flag:`You find a new lump or notice any change, even if it does not hurt.`,src:['WHO','NHS']},
+ {q:`Could my thyroid be affecting my periods?`,d:39,kw:['thyroid','hypothyroid','hyperthyroid','periods','weight','hair','tired','cold'],
+  a:[`The thyroid gland controls your metabolism, and it also affects your hormones.`,`An underactive or overactive thyroid can make periods irregular, heavy or light.`,`Tiredness, weight change, feeling too cold or too hot and thinning hair are other signs.`,`A simple blood test can check it.`],
+  flag:`You have several of these symptoms, or your periods changed for no clear reason.`,src:['NHS','ACOG']}
+]}
+];
+const T=Object.fromEntries(TOPICS.map(t=>[t.id,t]));
+const VIDEOS=[];
+TOPICS.forEach(t=>t.v.forEach((v,i)=>{v.topic=t.id;v.id=t.id+'-'+i;VIDEOS.push(v)}));
+const VID=Object.fromEntries(VIDEOS.map(v=>[v.id,v]));
+
+/* "Nobody told me this" series */
+const NTM=['sexual-2','cycle-2','sexual-1','fertility-0','postnatal-0','menopause-0','cycle-4'];
+const POPULAR=['cycle-1','pcos-0','pregnancy-1','sexual-0','postnatal-1','everyday-1','menopause-0','cycle-0','fertility-1'];
+
+const STAGES=[
+ {id:'teen',name:'Teen',ids:['cycle-0','cycle-2','cycle-1','sexual-2','cycle-4','everyday-1']},
+ {id:'adult',name:'Young adult',ids:['cycle-1','sexual-0','pcos-0','sexual-3','cycle-3','everyday-0']},
+ {id:'planning',name:'Planning a pregnancy',ids:['fertility-0','fertility-2','pregnancy-3','fertility-1','pcos-2','cycle-0']},
+ {id:'pregnant',name:'Pregnant',ids:['pregnancy-0','pregnancy-1','pregnancy-2','pregnancy-3','everyday-1','postnatal-1']},
+ {id:'newmom',name:'New mother',ids:['postnatal-0','postnatal-1','postnatal-2','postnatal-3','everyday-1','sexual-0']},
+ {id:'meno',name:'Perimenopause and beyond',ids:['menopause-0','menopause-1','menopause-2','everyday-2','everyday-3','everyday-1']}
+];
+
+const TIPS=[
+ {t:`Your cycle is counted from the first day of bleeding to the day before your next period. Note the first day each month.`,v:'cycle-0'},
+ {t:`With PCOS, regular meals with protein and fibre help keep blood sugar steady. Small habits beat strict diets.`,v:'pcos-3'},
+ {t:`Planning a pregnancy? Folic acid is best started at least a month before you try.`,v:'pregnancy-3'},
+ {t:`Once a month, look at and feel your breasts. Knowing your normal makes changes easier to spot.`,v:'everyday-2'},
+ {t:`Low mood before your period that returns every month is worth tracking. Patterns help your doctor help you.`,v:'cycle-4'},
+ {t:`Pelvic floor exercises help after birth and also with bladder control later in life.`,v:'postnatal-2'},
+ {t:`Tired all the time? With heavy periods, low iron is a common reason. A simple blood test can tell.`,v:'everyday-1'},
+ {t:`Condoms are the only method that also lowers the risk of most STIs, whatever other contraception you use.`,v:'sexual-0'}
+];
+
+const MYTHS=[
+ {m:`You can't get pregnant during your period.`,r:`It is less likely, but it can happen. Sperm can survive for up to 5 days, and with a shorter cycle you may ovulate soon after bleeding stops.`,tag:'Pregnancy'},
+ {m:`A tampon can get lost inside your body.`,r:`The opening of the cervix is too small for a tampon to pass through. If you cannot find the string, a clinician can help. Change tampons every 4 to 8 hours.`,tag:'Periods'},
+ {m:`PCOS means you can never have a baby.`,r:`Many people with PCOS conceive, sometimes with treatment to help them ovulate. See a doctor early if your cycles are very irregular.`,tag:'PCOS'},
+ {m:`Period blood is dirty, so you should avoid exercise, temples or washing your hair.`,r:`Period blood is blood and tissue from the womb lining. Exercise, bathing and washing your hair are all fine, and movement can ease cramps.`,tag:'Periods'},
+ {m:`Breastfeeding always prevents pregnancy.`,r:`It lowers the chance in the early months, but it is not reliable on its own. You can ovulate before your first period returns, so ask about contraception.`,tag:'Postpartum'},
+ {m:`The pill makes you infertile later.`,r:`Hormonal contraception does not cause lasting infertility. Fertility usually returns after you stop, although cycles can take a few months to settle.`,tag:'Sexual health'}
+];
+
+const CIRCLES=[
+ {id:'all',name:'All circles'},{id:'pcos',name:'PCOS'},{id:'endo',name:'Endometriosis'},{id:'period',name:'Period health'},
+ {id:'fertility',name:'Fertility support'},{id:'ttc',name:'Trying to conceive'},{id:'pregnancy',name:'Pregnancy'},{id:'newmoms',name:'New mothers'},
+ {id:'bf',name:'Breastfeeding support'},{id:'menopause',name:'Menopause support'},{id:'mental',name:'Mental wellness'}
+];
+const CIRCLE=Object.fromEntries(CIRCLES.map(c=>[c.id,c.name]));
+const AVC=['#F4B6CF','#E099DB','#C5BDE6','#B19ADE','#D8D9EB'];
+
+const SEED=[
+ {id:'s1',name:'Ananya',circle:'pcos',time:'2h ago',me:42,
+  text:`Diagnosed with PCOS last month and honestly feeling overwhelmed. Everyone just says "lose weight". What actually helped your cycles feel more regular?`,
+  replies:[{name:'Riya',time:'1h ago',text:`Strength training twice a week and protein with every meal changed a lot for me. It took about four months though, so be patient with yourself.`},{name:'Meera',time:'45m ago',text:`Getting my thyroid and blood sugar checked gave me a clearer picture. Worth asking your doctor about it.`}]},
+ {id:'s2',name:'Anonymous',anon:true,circle:'period',time:'5h ago',me:67,
+  text:`Does anyone else get cramps so bad on day one that they throw up? I was told for years it is "normal" and I am starting to doubt that.`,
+  replies:[{name:'Divya',time:'4h ago',text:`It is not normal to be put out of action every month. I pushed for a scan and it led to my endometriosis diagnosis. Keep pushing.`}]},
+ {id:'s3',name:'Anonymous',anon:true,circle:'newmoms',time:'1d ago',me:118,
+  text:`Week 5 postpartum and I cry every evening for no reason. Is this just tiredness? I feel like I should be happier.`,
+  replies:[{name:'Kavya',time:'22h ago',text:`Sending you a hug. I told my health visitor at week 6 and was so glad I did. You are not failing, and you do not have to carry it alone.`}]},
+ {id:'s4',name:'Priya',circle:'ttc',time:'1d ago',me:54,
+  text:`Cycle 6 of trying. Scrolling past everyone's announcements is hard today. I just wanted to say it out loud somewhere safe.`,replies:[]},
+ {id:'s5',name:'Anonymous',anon:true,circle:'endo',time:'2d ago',me:89,
+  text:`Six years from first symptoms to diagnosis. I kept being told it was just bad periods. If you are being dismissed, please keep a symptom diary and ask again.`,
+  replies:[{name:'Shruti',time:'2d ago',text:`This is exactly what I did. The diary made my doctor take me seriously.`}]},
+ {id:'s6',name:'Lakshmi',circle:'menopause',time:'3d ago',me:31,
+  text:`Hot flushes at 3am again. What is your best sleep trick? Mine is a cooling pillow and a fan pointed at my feet.`,
+  replies:[{name:'Sunita',time:'3d ago',text:`Cotton nightwear and a glass of cold water by the bed. Small things, but they help.`}]},
+ {id:'s7',name:'Nisha',circle:'bf',time:'3d ago',me:36,
+  text:`Day 10 of breastfeeding and my nipples are sore. Anyone else? How long did it take to feel comfortable?`,
+  replies:[{name:'Pooja',time:'3d ago',text:`It got easier around week 3 after a lactation consultant fixed my latch. If it hurts through the whole feed, ask for a latch check.`}]},
+ {id:'s8',name:'Anonymous',anon:true,circle:'mental',time:'4d ago',me:58,
+  text:`Some days the worry about my cycle, my skin and my weight all pile up. Does anyone else feel like PCOS is a mental load too?`,replies:[]}
+];
+
+const MOODS=[['great','Great'],['good','Good'],['okay','Okay'],['low','Low'],['rough','Rough']];
+const MOODMSG={
+ great:`Lovely. Notice what helped today and do a little more of it.`,
+ good:`Good to hear. Keep up whatever is working.`,
+ okay:`Okay is fine. A glass of water and a short walk can help a flat day.`,
+ low:`Sorry it is a heavy day. Be gentle with yourself. If low mood has lasted more than two weeks, it is worth talking to a doctor.`,
+ rough:`Sorry it is a rough day. Be gentle with yourself. If low mood has lasted more than two weeks, talk to a doctor. If you ever think about harming yourself, contact your local emergency number or a crisis helpline right away.`
+};
+const LANGS=[['en','English'],['kn','ಕನ್ನಡ (Kannada)'],['hi','हिन्दी (Hindi)'],['te','తెలుగు (Telugu)'],['ta','தமிழ் (Tamil)'],['ml','മലയാളം (Malayalam)']];
+
+/* ================= state + storage ================= */
+const $=(s,r)=>(r||document).querySelector(s);
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+const hash=s=>{let h=0;for(const ch of s)h=(h*31+ch.charCodeAt(0))>>>0;return h};
+const dkey=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const clone=o=>JSON.parse(JSON.stringify(o));
+const ROUTES=['home','explore','ask','community','profile'];
+const PKEY='stree-profile-v1',QKEY='stree-posts-v1';
+function readJSON(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==='object'?v:d}catch(e){return d}}
+function writeJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+const fresh=()=>({name:'',stage:'',interests:[],lang:'en',personalise:true,anon:false,saved:[],history:[],savedPosts:[],reported:[],metoo:[],checkins:{}});
+let prof=Object.assign(fresh(),readJSON(PKEY,{}));
+const saveProf=()=>writeJSON(PKEY,prof);
+const saveMine=()=>writeJSON(QKEY,state.posts.filter(p=>p.mine));
+const state={
+  route:'home',topic:'all',q:'',circle:'all',open:new Set(),
+  thread:[{q:`Why is my period late?`,vid:'cycle-1',example:true}],
+  posts:[]
+};
+const mineSaved=readJSON(QKEY,[]);
+state.posts=(Array.isArray(mineSaved)?mineSaved:[]).concat(clone(SEED));
+const app=$('#app');
+
+const play='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>';
+const shield='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>';
+const heart='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.3-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.7-7 10-7 10z"/></svg>';
+const bookmark='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>';
+const flag='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16M6 5h11l-2 4 2 4H6"/></svg>';
+const person='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg>';
+const icon=id=>`<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[id]}</svg>`;
+
+/* illustrated presenter (varied looks, not real people) */
+function avatar(p){
+  const {skin,hair,top,style,bindi}=p;
+  const back={
+    long:`<path d="M30 62C30 32 44 18 60 18s30 14 30 44l6 70H24z" fill="${hair}"/>`,
+    bun:`<circle cx="60" cy="15" r="12" fill="${hair}"/>`,
+    curly:`<g fill="${hair}"><circle cx="33" cy="42" r="14"/><circle cx="87" cy="42" r="14"/><circle cx="42" cy="24" r="14"/><circle cx="78" cy="24" r="14"/><circle cx="60" cy="18" r="15"/><circle cx="30" cy="62" r="12"/><circle cx="90" cy="62" r="12"/></g>`,
+    bob:`<path d="M28 60C28 28 42 18 60 18s32 10 32 42l2 28q-34 14-68 0z" fill="${hair}"/>`
+  }[style]||'';
+  return `<svg viewBox="0 0 120 160" aria-hidden="true" focusable="false">${back}
+  <path d="M8 160c0-26 20-44 52-44s52 18 52 44z" fill="${top}"/>
+  <rect x="50" y="88" width="20" height="32" rx="8" fill="${skin}"/>
+  <ellipse cx="60" cy="64" rx="28" ry="32" fill="${skin}"/>
+  <path d="M32 62c0-26 14-38 28-38s28 12 28 38c-6-14-16-22-28-22S38 48 32 62z" fill="${hair}"/>
+  <path d="M44 58q5-3 10 0M66 58q5-3 10 0" stroke="${hair}" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="49" cy="66" rx="2.6" ry="3.2" fill="#2b1a33"/><ellipse cx="71" cy="66" rx="2.6" ry="3.2" fill="#2b1a33"/>
+  <circle cx="43" cy="76" r="5" fill="#F08AA8" opacity=".4"/><circle cx="77" cy="76" r="5" fill="#F08AA8" opacity=".4"/>
+  ${bindi?'<circle cx="60" cy="50" r="1.9" fill="#C2185B"/>':''}
+  <path class="mouth" d="M52 79q8 8 16 0z" fill="#8a3555" stroke="#8a3555" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+}
+
+/* ================= components ================= */
+function vcard(v){
+  const t=T[v.topic];
+  return `<button class="vcard" data-action="play" data-id="${v.id}" style="--g1:${t.p.bg[0]};--g2:${t.p.bg[1]}" aria-label="Watch video: ${esc(v.q)} (${fmt(v.d)})">
+    <span class="vc-tag">${esc(t.short)}</span><span class="vc-dur">${fmt(v.d)}</span>
+    <span class="vc-av">${avatar(t.p)}</span>
+    <span class="vc-q"><span>${esc(v.q)}</span><i>${play}</i></span></button>`;
+}
+const srcChips=v=>v.src.map(s=>`<span class="src">${shield}${esc(s)}</span>`).join('');
+function avBadge(p){
+  if(p.anon) return `<span class="av" style="background:var(--mist)">${person}</span>`;
+  return `<span class="av" style="background:${AVC[hash(p.name)%AVC.length]}">${esc(p.name.charAt(0).toUpperCase())}</span>`;
+}
+function postHTML(p,preview){
+  const reported=prof.reported.includes(p.id);
+  if(reported&&!preview) return `<article class="post" data-post="${p.id}"><p class="muted">You reported this post. Our moderators will take a look. <button class="link" data-action="unreport" data-id="${p.id}">Undo</button></p></article>`;
+  const open=state.open.has(p.id), met=prof.metoo.includes(p.id), sv=prof.savedPosts.includes(p.id);
+  const rep=p.replies.map(r=>`<div class="reply">${avBadge({name:r.name})}<div class="bub"><b>${esc(r.name)}</b> <span class="muted">${esc(r.time)}</span><div>${esc(r.text)}</div></div></div>`).join('');
+  const actions=preview?`<div class="p-a muted" style="font-size:.85rem">${p.me} said me too · ${p.replies.length} replies</div>`:`<div class="p-a">
+    <button class="pill-btn" data-action="metoo" data-id="${p.id}" aria-pressed="${met}">${heart}Me too · ${p.me+(met?1:0)}</button>
+    <button class="pill-btn" data-action="replies" data-id="${p.id}" aria-expanded="${open}">Replies · ${p.replies.length}</button>
+    <span class="spacer"></span>
+    <button class="pill-btn" data-action="savepost" data-id="${p.id}" aria-pressed="${sv}" aria-label="Save discussion">${bookmark}${sv?'Saved':'Save'}</button>
+    <button class="pill-btn" data-action="report" data-id="${p.id}" aria-label="Report this post">${flag}Report</button></div>
+    ${open?`<div class="replies">${rep}<form class="reply-form" data-id="${p.id}"><input type="text" aria-label="Write a reply" placeholder="Share your experience, kindly" maxlength="400" autocomplete="off"><button class="btn btn-dark btn-sm" type="submit">Reply</button></form></div>`:''}`;
+  return `<article class="post" data-post="${p.id}">
+    <div class="p-h">${avBadge(p)}<div class="p-who"><b>${esc(p.name)}</b><span>${esc(p.time)}</span></div><span class="tag">${esc(CIRCLE[p.circle]||'Community')}</span></div>
+    <p class="p-t">${esc(p.text)}</p>${actions}</article>`;
+}
+
+/* ================= home helpers ================= */
+function greeting(){
+  const h=new Date().getHours();
+  const g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  return g+(prof.name.trim()?', '+esc(prof.name.trim()):'');
+}
+function tipHTML(){
+  const d=new Date(), doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5), tip=TIPS[doy%TIPS.length];
+  return `<p class="eyebrow">Today's Her tip</p><p class="tip-t">${esc(tip.t)}</p>
+    <button class="btn btn-ghost btn-sm" data-action="play" data-id="${tip.v}">${play}Watch ${fmt(VID[tip.v].d)} video</button>`;
+}
+function checkinHTML(){
+  const today=dkey(new Date()), cur=prof.checkins[today];
+  const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));const k=dkey(d);return {l:'SMTWTFS'[d.getDay()],m:prof.checkins[k]}});
+  const done=days.filter(d=>d.m).length;
+  return `<h3>Daily check-in</h3><p class="muted" style="font-size:.95rem">How are you feeling today?</p>
+    <div class="moods" role="group" aria-label="Mood today">${MOODS.map(([k,l])=>`<button class="chip" data-action="mood" data-id="${k}" aria-pressed="${cur===k}">${l}</button>`).join('')}</div>
+    ${cur?`<p class="ci-msg" role="status">${esc(MOODMSG[cur])}</p>`:''}
+    <div class="week" role="img" aria-label="${done} of the last 7 days checked in">${days.map(d=>`<span class="day${d.m?' on':''}"><i></i>${d.l}</span>`).join('')}</div>
+    <p class="hint">${done} of the last 7 days. Stored only on this device.</p>`;
+}
+function forYouIds(){
+  const ids=[], add=id=>{if(VID[id]&&!ids.includes(id))ids.push(id)};
+  if(prof.personalise){
+    const st=STAGES.find(s=>s.id===prof.stage); if(st) st.ids.forEach(add);
+    prof.interests.forEach(c=>T[c]&&T[c].v.slice(0,2).forEach(v=>add(v.id)));
+  }
+  if(!ids.length) POPULAR.forEach(add);
+  return ids.slice(0,10);
+}
+function forYouWhy(){
+  if(!prof.personalise) return 'Personalisation is off, so you are seeing popular videos. You can turn it on in your profile.';
+  const bits=[], st=STAGES.find(s=>s.id===prof.stage);
+  if(st) bits.push(st.name);
+  prof.interests.forEach(c=>T[c]&&bits.push(T[c].short));
+  return bits.length?'Chosen because you picked: '+bits.join(', ')+'.':'Popular right now. Pick your stage above to personalise this row.';
+}
+function renderForYou(){
+  const r=$('#forYouRail'); if(!r) return;
+  r.innerHTML=forYouIds().map(id=>vcard(VID[id])).join('');
+  $('#forYouWhy').textContent=forYouWhy();
+}
+function syncChips(){
+  $$('[data-action="stage"]').forEach(b=>b.setAttribute('aria-pressed',String(prof.stage===b.dataset.id)));
+  $$('[data-action="interest"]').forEach(b=>b.setAttribute('aria-pressed',String(prof.interests.includes(b.dataset.id))));
+}
+
+/* ================= views ================= */
+function viewHome(){
+  const tiles=TOPICS.map(t=>`<button class="tile" data-action="topic" data-id="${t.id}" style="--tint:${t.tint}">
+      <span class="ico">${icon(t.id)}</span><h3>${esc(t.name)}</h3><p>${esc(t.blurb)}</p><span class="n">${t.v.length} short videos</span></button>`).join('');
+  const myths=MYTHS.map(m=>`<details><summary><span class="lab">Myth · ${esc(m.tag)}</span>${esc(m.m)}</summary><div class="real"><span class="lab">What medicine says</span><p>${esc(m.r)}</p></div></details>`).join('');
+  const stageChips=STAGES.map(s=>`<button class="chip" data-action="stage" data-id="${s.id}" aria-pressed="${prof.stage===s.id}">${esc(s.name)}</button>`).join('');
+  return `
+  <section class="wrap hero">
+    <div>
+      <p class="eyebrow">${greeting()}</p>
+      <h1>Your body. Your questions. <em>Your space.</em></h1>
+      <p class="lead">Short video answers with their sources, a private place to ask anything, and a community of women who have been there.</p>
+      <form class="askbox" id="heroAsk" role="search">
+        <label class="sr" for="heroQ">Ask HerAI a question</label>
+        <input id="heroQ" type="text" placeholder="Ask anything, like “Why is my period late?”" autocomplete="off" maxlength="300">
+        <button class="btn btn-primary" type="submit">Ask</button>
+      </form>
+      <div class="try"><span>Try:</span>
+        <button class="chip" data-action="suggest" data-q="Why is my period late?">Why is my period late?</button>
+        <button class="chip" data-action="suggest" data-q="What is PCOS?">What is PCOS?</button>
+        <button class="chip" data-action="suggest" data-q="Is light spotting in early pregnancy normal?">Spotting in pregnancy</button>
+      </div>
+    </div>
+    <div class="hero-vis" aria-label="Example videos">${vcard(VID['cycle-1'])}${vcard(VID['pcos-0'])}</div>
+  </section>
+
+  <section class="wrap sec"><div class="two">
+    <div class="card" id="checkin">${checkinHTML()}</div>
+    <div class="card tip">${tipHTML()}</div>
+  </div></section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><div><h2>For you</h2><p id="forYouWhy">${esc(forYouWhy())}</p></div><button class="link" data-action="go" data-id="profile">Change in profile</button></div>
+    <div class="chips scroll" role="group" aria-label="Your life stage" style="margin-bottom:.8rem">${stageChips}</div>
+    <div class="rail" id="forYouRail">${forYouIds().map(id=>vcard(VID[id])).join('')}</div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><div><h2>Explore by topic</h2><p>Eight areas of women's health, each with short video answers.</p></div><button class="link" data-action="go" data-id="explore">See all ${VIDEOS.length} videos</button></div>
+    <div class="tiles">${tiles}</div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><div><p class="eyebrow">Series</p><h2>Nobody told me this</h2><p>The questions many of us are too shy to ask.</p></div><button class="link" data-action="scope" data-id="ntm" data-go="1">See the series</button></div>
+    <div class="rail">${NTM.map(id=>vcard(VID[id])).join('')}</div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-h"><div><p class="eyebrow">Myth vs Medicine</p><h2>What you heard, and what is true</h2><p>Sample explanations. In the full app each one is reviewed by a clinician and cites its source.</p></div></div>
+      <div class="myths">${myths}</div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="shame">
+      <div><h2>Ask without shame</h2><p style="margin-top:.5rem">Ask the questions you would never say out loud. They stay private, and nothing is posted publicly.</p>
+        <p style="margin-top:1rem"><button class="btn btn-dark" data-action="go" data-id="ask">Ask HerAI</button></p></div>
+      <div class="chips">
+        <button class="chip" data-action="suggest" data-q="Is pain during sex normal?">Is pain during sex normal?</button>
+        <button class="chip" data-action="suggest" data-q="What is normal vaginal discharge?">What is normal vaginal discharge?</button>
+        <button class="chip" data-action="suggest" data-q="Is period pain normal?">Is period pain normal?</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><div><h2>Why you can rely on it</h2></div></div>
+    <div class="trust">
+      <div><h3>Every answer shows its source</h3><p>Answers are based on public guidance from bodies like the WHO, NHS, ACOG and CDC, and each one lists where it came from.</p></div>
+      <div><h3>Short, plain and captioned</h3><p>No jargon and no long articles. Watch it in under a minute, or read the same answer as text.</p></div>
+      <div><h3>Tells you when to get help<span class="soon">Clinician review planned</span></h3><p>Each answer ends with the signs that mean it is time to see a doctor, so you know what to do next.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="sec-h"><div><h2>You are not the only one</h2><p>Sample conversations from the community circles.</p></div><button class="link" data-action="go" data-id="community">Open community</button></div>
+    <div class="feed">${state.posts.slice(0,3).map(p=>postHTML(p,true)).join('')}</div>
+    <p style="margin-top:1.2rem"><button class="btn btn-dark" data-action="go" data-id="community">Join the conversation</button></p>
+  </section>`;
+}
+
+/* ----- explore ----- */
+function viewExplore(){
+  const sel=state.topic;
+  const chips=[['all','All topics']].concat(TOPICS.map(t=>[t.id,t.short]),[['ntm','Nobody told me this'],['saved','Saved ('+prof.saved.length+')']])
+    .map(([id,l])=>`<button class="chip" data-action="scope" data-id="${id}" aria-pressed="${sel===id}">${esc(l)}</button>`).join('');
+  return `<section class="wrap page-h"><p class="eyebrow">Explore</p><h1>Learn about <em>your body</em></h1><p>Search, or pick a topic. Every video is under a minute and shows its sources.</p></section>
+  <div class="wrap">
+    <div class="searchrow"><label class="sr" for="exploreQ">Search videos</label><input id="exploreQ" class="field" type="search" placeholder="Search, like “pain”, “iron” or “PCOS”" value="${esc(state.q)}" autocomplete="off"></div>
+    <div class="chips scroll" id="exploreChips" role="group" aria-label="Filter by topic">${chips}</div>
+    <div id="exploreRes" aria-live="polite"></div>
+  </div>`;
+}
+function renderExplore(){
+  const el=$('#exploreRes'); if(!el) return;
+  const q=state.q.trim().toLowerCase(), sel=state.topic;
+  let base;
+  if(sel==='saved') base=prof.saved.map(id=>VID[id]).filter(Boolean);
+  else if(sel==='ntm') base=NTM.map(id=>VID[id]);
+  else if(sel==='all') base=VIDEOS;
+  else base=T[sel].v;
+  if(q){
+    const toks=q.split(/\s+/).filter(Boolean);
+    base=base.filter(v=>{const h=(v.q+' '+v.kw.join(' ')+' '+v.a.join(' ')+' '+T[v.topic].name).toLowerCase();return toks.every(t=>h.includes(t))});
+  }
+  if(!base.length){
+    el.innerHTML=sel==='saved'&&!q
+      ?`<div class="empty" style="margin-top:1.2rem"><p>Nothing saved yet. Open any video and tap Save to keep it here.</p><button class="btn btn-primary btn-sm" data-action="scope" data-id="all">Browse all videos</button></div>`
+      :`<div class="empty" style="margin-top:1.2rem"><p>No videos match “${esc(state.q)}”${sel!=='all'?' in this topic':''}.</p><div class="ans-act" style="justify-content:center"><button class="btn btn-primary btn-sm" data-action="suggest" data-q="${esc(state.q)}">Ask HerAI instead</button><button class="btn btn-ghost btn-sm" data-action="clearq">Clear search</button></div></div>`;
+    return;
+  }
+  if(q||sel==='saved'||sel==='ntm'){
+    const head=q?`${base.length} ${base.length===1?'video':'videos'} for “${esc(state.q)}”`:sel==='ntm'?'Nobody told me this: questions many of us are too shy to ask':`${base.length} saved ${base.length===1?'video':'videos'}`;
+    el.innerHTML=`<p class="muted" style="margin:1.2rem 0 .8rem">${head}</p><div class="vgrid">${base.map(vcard).join('')}</div>`;
+    return;
+  }
+  const cats=sel==='all'?TOPICS:[T[sel]];
+  el.innerHTML=cats.map(t=>`<section class="t-sec" aria-labelledby="h-${t.id}">
+    <div class="t-head"><span class="ico" style="--tint:${t.tint}">${icon(t.id)}</span><div><h2 id="h-${t.id}">${esc(t.name)}</h2><p>${esc(t.blurb)}</p></div></div>
+    <div class="vgrid">${t.v.map(vcard).join('')}</div></section>`).join('');
+}
+
+/* ----- ask ----- */
+function viewAsk(){
+  const pops=['cycle-1','pcos-2','pregnancy-2','postnatal-1','sexual-1','fertility-1'].map(id=>`<button data-action="suggest" data-q="${esc(VID[id].q)}"><span>${esc(VID[id].q)}</span><small>${fmt(VID[id].d)}</small></button>`).join('');
+  return `<section class="wrap page-h"><p class="eyebrow">Ask HerAI</p><h1>Ask anything. <em>No question is too small.</em></h1><p>Type your question and get a short, plain answer with its sources. Your questions stay private.</p></section>
+  <div class="wrap layout">
+    <div>
+      <form class="askform" id="askForm">
+        <label class="sr" for="askQ">Your question</label>
+        <textarea id="askQ" rows="3" maxlength="400" placeholder="For example: I'm 10 days late but my test is negative. What could it be?"></textarea>
+        <div class="c-row"><span class="hint">Private by default</span><button class="btn btn-primary" type="submit">Ask</button></div>
+      </form>
+      <div class="thread" id="thread" aria-live="polite"></div>
+    </div>
+    <aside class="side">
+      <div class="card"><h3>Popular questions</h3><div class="pop">${pops}</div></div>
+      <div class="card soft"><h3>What HerAI can and cannot do</h3><ul><li>Explains health topics in plain language.</li><li>Does not diagnose or prescribe medicines.</li><li>In this preview, answers come from a small set of sample videos.</li></ul></div>
+      <div class="card alert"><h3>In an emergency</h3><p style="font-size:.92rem">Heavy bleeding, severe pain, trouble breathing, or thoughts of harming yourself need urgent help. Contact your local emergency number straight away.</p></div>
+    </aside>
+  </div>`;
+}
+const STOP=new Set('the and for what how why can are did does you with have has that this when not but from about get got its it my me do is i a an to of in on be am was if or so at as any should could would'.split(' '));
+function findAnswer(q){
+  const ql=q.toLowerCase().trim().replace(/[?.!]+$/,'');
+  const exact=VIDEOS.find(v=>v.q.toLowerCase().replace(/[?.!]+$/,'')===ql);
+  if(exact) return exact;
+  const ws=(ql.match(/[a-z0-9\-]+/g)||[]).filter(w=>w.length>2&&!STOP.has(w));
+  let best=null,bs=0;
+  VIDEOS.forEach(v=>{
+    const hay=(v.q+' '+v.a.join(' ')).toLowerCase();
+    let s=0;
+    ws.forEach(w=>{ if(v.kw.includes(w)) s+=2; else if(hay.includes(w)) s+=1; });
+    if(s>bs){bs=s;best=v}
+  });
+  return bs>=2?best:null;
+}
+function answerCard(v){
+  const t=T[v.topic];
+  const rel=t.v.filter(x=>x.id!==v.id).slice(0,3).map(x=>`<button class="chip" data-action="suggest" data-q="${esc(x.q)}">${esc(x.q)}</button>`).join('');
+  return `<div class="ans">
+    <div class="ans-h"><span class="badge">Sample answer</span><span class="muted" style="font-size:.88rem">${esc(t.name)}</span></div>
+    <p class="ans-t">${esc(v.a.join(' '))}</p>
+    <div class="help"><b>When to get help</b>${esc(v.flag)}</div>
+    <div class="srcs">Sources ${srcChips(v)}</div>
+    <div class="ans-act"><button class="btn btn-primary btn-sm" data-action="play" data-id="${v.id}">${play}Watch ${fmt(v.d)} video</button><button class="btn btn-ghost btn-sm" data-action="topic" data-id="${v.topic}">More on ${esc(t.short)}</button></div>
+    <div class="rel"><span>You could also ask:</span>${rel}</div></div>`;
+}
+function noMatch(){
+  return `<div class="ans"><div class="ans-h"><span class="badge">Preview</span></div>
+    <p class="ans-t">I do not have a checked answer for that yet. In the full app, a question like this goes to a review queue and you get notified when it is answered.</p>
+    <div class="ans-act"><button class="btn btn-primary btn-sm" data-action="go" data-id="community">Ask the community</button><button class="btn btn-ghost btn-sm" data-action="go" data-id="explore">Browse topics</button></div></div>`;
+}
+function renderThread(){
+  const el=$('#thread'); if(!el) return;
+  el.innerHTML=state.thread.map(e=>`<article class="exch">
+    <div class="q-b"><span class="q-lab">${e.example?'Example question':'You asked'}</span>${esc(e.q)}</div>
+    ${e.pending?`<div class="ans pending" role="status"><span class="dots"><i></i><i></i><i></i></span>Checking trusted sources…</div>`:e.vid?answerCard(VID[e.vid]):noMatch()}</article>`).join('');
+}
+function ask(q){
+  q=q.trim(); if(!q) return;
+  const e={q,pending:true};
+  state.thread.unshift(e);
+  if(state.route!=='ask') go('ask'); else renderThread();
+  setTimeout(()=>{const v=findAnswer(q);e.vid=v?v.id:null;e.pending=false;if(state.route==='ask')renderThread()},750);
+}
+
+/* ----- community ----- */
+function viewCommunity(){
+  const chips=CIRCLES.map(c=>`<button class="chip" data-action="circle" data-id="${c.id}" aria-pressed="${state.circle===c.id}">${esc(c.name)}</button>`).join('');
+  const def=state.circle!=='all'?state.circle:'period';
+  const opts=CIRCLES.filter(c=>c.id!=='all').map(c=>`<option value="${c.id}"${def===c.id?' selected':''}>${esc(c.name)}</option>`).join('');
+  return `<section class="wrap page-h"><p class="eyebrow">Community</p><h1>You are <em>not alone</em> in this</h1><p>Share what you are going through and hear from others who understand. Join in by name or anonymously.</p></section>
+  <div class="wrap"><div class="chips scroll" role="group" aria-label="Filter by circle" style="margin-bottom:1.2rem">${chips}</div></div>
+  <div class="wrap layout">
+    <div>
+      <form class="composer" id="postForm">
+        <label class="sr" for="postText">Share with the community</label>
+        <textarea id="postText" rows="3" maxlength="600" placeholder="What's on your mind? Others may be going through the same thing."></textarea>
+        <div class="c-row">
+          <label class="sr" for="postCircle">Circle</label>
+          <select id="postCircle">${opts}</select>
+          <label class="check"><input type="checkbox" id="postAnon"${prof.anon?' checked':''}> Post anonymously</label>
+          <button class="btn btn-primary" type="submit">Share</button>
+        </div>
+        <p id="postMsg" class="hint" role="status"></p>
+      </form>
+      <div class="feed" id="feed" style="margin-top:1rem"></div>
+    </div>
+    <aside class="side">
+      <div class="card soft"><h3>Community guidelines</h3><ul><li>Share your experience, not prescriptions.</li><li>Be kind. Everyone's story is different.</li><li>Talk to your doctor before changing any medicine.</li><li>Experiences shared here are not medical advice.</li></ul></div>
+      <div class="card"><h3>Need an answer, not a chat?</h3><p class="muted" style="font-size:.92rem;margin-bottom:.8rem">Get a short video answer with sources.</p><button class="btn btn-primary btn-sm" data-action="go" data-id="ask">Ask HerAI</button></div>
+    </aside>
+  </div>`;
+}
+function renderFeed(){
+  const el=$('#feed'); if(!el) return;
+  const list=state.posts.filter(p=>state.circle==='all'||p.circle===state.circle);
+  el.innerHTML=list.length?list.map(p=>postHTML(p)).join(''):`<div class="empty"><p>No posts in this circle yet. Be the first to share.</p></div>`;
+}
+function refreshPost(id){
+  const p=state.posts.find(x=>x.id===id), el=$(`[data-post="${id}"]`);
+  if(p&&el) el.outerHTML=postHTML(p);
+}
+
+/* ----- profile ----- */
+function listVideos(ids,empty){
+  return ids.length?`<div class="list">${ids.map(id=>`<button data-action="play" data-id="${id}"><span>${esc(VID[id].q)}</span><small>${fmt(VID[id].d)}</small></button>`).join('')}</div>`:`<p class="hint">${empty}</p>`;
+}
+function langNote(){
+  const l=LANGS.find(x=>x[0]===prof.lang);
+  return prof.lang==='en'?'Content is shown in English.':'Videos and answers are in English for now. Clinically reviewed '+l[1].split('(').pop().replace(')','')+' translations are planned. Your choice is saved.';
+}
+function viewProfile(){
+  const st=STAGES.find(s=>s.id===prof.stage);
+  const initial=prof.name.trim()?esc(prof.name.trim().charAt(0).toUpperCase()):person;
+  const stageChips=STAGES.map(s=>`<button class="chip" data-action="stage" data-id="${s.id}" aria-pressed="${prof.stage===s.id}">${esc(s.name)}</button>`).join('');
+  const intChips=TOPICS.map(t=>`<button class="chip" data-action="interest" data-id="${t.id}" aria-pressed="${prof.interests.includes(t.id)}">${esc(t.short)}</button>`).join('');
+  const langs=LANGS.map(([k,l])=>`<option value="${k}"${prof.lang===k?' selected':''}>${esc(l)}</option>`).join('');
+  const hist=prof.history.filter(id=>VID[id]).slice(0,6);
+  const sp=state.posts.filter(p=>prof.savedPosts.includes(p.id));
+  const spHTML=sp.length?`<div class="list">${sp.map(p=>`<button data-action="openpost" data-id="${p.id}"><span>${esc(p.text.length>90?p.text.slice(0,90)+'…':p.text)}</span><small>${esc(CIRCLE[p.circle]||'')}</small></button>`).join('')}</div>`:`<p class="hint">Tap Save on a community post to keep it here.</p>`;
+  return `<section class="wrap page-h"><p class="eyebrow">My profile</p><h1>Your space, <em>your rules</em></h1><p>Choose what you see and what stays private. Everything here is stored on this device only. Accounts and sign-in arrive in the full app.</p></section>
+  <div class="wrap layout">
+    <div class="side">
+      <div class="card">
+        <div class="who"><span class="av" id="profAv">${initial}</span><div><h3 style="margin:0">${prof.name.trim()?esc(prof.name.trim()):'Welcome'}</h3><p class="muted" id="profStage" style="font-size:.9rem">${st?esc(st.name):'No life stage chosen yet'}</p></div></div>
+        <div class="form-row"><label for="profName">What should we call you? (optional)</label><input class="field" id="profName" type="text" maxlength="40" autocomplete="off" placeholder="A first name or a nickname" value="${esc(prof.name)}"></div>
+        <div class="form-row"><span class="lbl" id="stageLbl">Your life stage</span><div class="chips" role="group" aria-labelledby="stageLbl">${stageChips}</div>${prof.stage==='teen'?'<p class="hint">Topics are chosen to suit your age. You can always talk to a trusted adult or a doctor.</p>':''}</div>
+        <div class="form-row"><span class="lbl" id="intLbl">Topics you care about</span><div class="chips" role="group" aria-labelledby="intLbl">${intChips}</div></div>
+        <label class="switch"><input type="checkbox" id="optPers"${prof.personalise?' checked':''}><span class="tr"></span><span><b>Personalise my content</b><span class="hint">Uses your stage and topics to fill “For you” on the home screen. Turn off to see popular videos instead.</span></span></label>
+      </div>
+      <div class="card">
+        <h3>Saved videos</h3>${listVideos(prof.saved.filter(id=>VID[id]),'Open any video and tap Save to keep it here.')}
+        <h3 style="margin-top:1.1rem">Recently watched</h3>${listVideos(hist,'Videos you watch will show up here.')}
+        <h3 style="margin-top:1.1rem">Saved discussions</h3>${spHTML}
+      </div>
+    </div>
+    <aside class="side">
+      <div class="card">
+        <h3>Language</h3>
+        <div class="form-row" style="margin-bottom:.4rem"><label class="sr" for="profLang">Preferred language</label><select class="field" id="profLang">${langs}</select></div>
+        <p class="hint" id="langNote">${esc(langNote())}</p>
+      </div>
+      <div class="card">
+        <h3>Privacy</h3>
+        <label class="switch"><input type="checkbox" id="optAnon"${prof.anon?' checked':''}><span class="tr"></span><span><b>Post anonymously by default</b><span class="hint">New community posts start with “Post anonymously” ticked.</span></span></label>
+        <p class="hint">Your questions to HerAI are not shared with the community. Intimate health data is never used for advertising.</p>
+      </div>
+      <div class="card">
+        <h3>Your data</h3>
+        <p class="hint" style="margin-bottom:.8rem">See everything this preview stores about you, or erase it.</p>
+        <div class="ans-act"><button class="btn btn-ghost btn-sm" data-action="showdata">Show my data</button><button class="btn btn-ghost btn-sm" data-action="delask">Delete my data</button></div>
+        <div id="dataArea"></div>
+      </div>
+    </aside>
+  </div>`;
+}
+
+/* ================= routing ================= */
+function parse(){const h=(location.hash||'').replace('#','');return ROUTES.includes(h)?h:'home'}
+function render(){
+  const v={home:viewHome,explore:viewExplore,ask:viewAsk,community:viewCommunity,profile:viewProfile}[state.route];
+  app.innerHTML=v();
+  $$('[data-route]').forEach(a=>{a.dataset.route===state.route?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
+  if(state.route==='ask')renderThread();
+  if(state.route==='community')renderFeed();
+  if(state.route==='explore')renderExplore();
+}
+function go(r){
+  state.route=r;
+  try{if(location.hash!=='#'+r)location.hash=r}catch(e){}
+  render(); window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',()=>{const r=parse();if(r!==state.route){state.route=r;render();window.scrollTo(0,0)}});
+
+/* ================= video player ================= */
+const modal=$('#modal');
+let P=null,lastFocus=null;
+function savedBtn(id){const s=prof.saved.includes(id);return `<button class="btn btn-ghost btn-sm" data-action="save" data-id="${id}" aria-pressed="${s}">${bookmark}${s?'Saved':'Save'}</button>`}
+function modalHTML(v){
+  const t=T[v.topic], g=t.p.bg;
+  const lines=v.a.map((l,i)=>`<li><button data-action="seek" data-i="${i}">${esc(l)}</button></li>`).join('');
+  const more=t.v.filter(x=>x.id!==v.id).slice(0,3).map(x=>`<button data-action="play" data-id="${x.id}"><span>${esc(x.q)}</span><small>${fmt(x.d)}</small></button>`).join('');
+  return `<div class="m-back" data-action="close"></div>
+  <div class="m-card">
+    <button class="m-close" data-action="close" aria-label="Close video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="m-grid">
+      <div class="m-media">
+        <div class="stage paused" id="stage" data-action="toggle" role="button" tabindex="0" aria-label="Play or pause video" style="--g1:${g[0]};--g2:${g[1]}">
+          <div class="s-top"><span>AI presenter · preview</span><span id="sTime">0:00 / ${fmt(v.d)}</span></div>
+          <div class="s-av">${avatar(t.p)}</div>
+          <div class="s-cap" id="sCap"></div>
+          <div class="s-bar"><i id="sFill"></i></div>
+          <span class="s-play">${play}</span>
+        </div>
+      </div>
+      <div class="m-info">
+        <p class="eyebrow">${esc(t.name)}</p>
+        <h2 id="mTitle">${esc(v.q)}</h2>
+        <p class="muted" style="font-size:.9rem">${fmt(v.d)} video · Sample answer. Tap a line to jump to it.</p>
+        <ol class="trs">${lines}</ol>
+        <div class="help"><b>When to get help</b>${esc(v.flag)}</div>
+        <div class="srcs">Sources ${srcChips(v)}<span>Links added after clinician review.</span></div>
+        <div class="ans-act">${savedBtn(v.id)}<button class="btn btn-primary btn-sm" data-action="followup" data-id="${v.id}">Ask a follow-up</button></div>
+        <div class="fb" id="fb"><span>Was this helpful?</span><button class="chip" data-action="helpful">Yes</button><button class="chip" data-action="helpful">Not quite</button></div>
+        <div class="more"><h3 style="font-size:1.05rem;margin:.3rem 0 .2rem">More in ${esc(t.short)}</h3>${more}</div>
+      </div>
+    </div>
+  </div>`;
+}
+function paint(){
+  if(!P) return;
+  const {v,t}=P, n=v.a.length, idx=Math.min(n-1,Math.floor(t*n));
+  $('#sFill').style.width=(t*100)+'%';
+  $('#sTime').textContent=fmt(t*v.d)+' / '+fmt(v.d);
+  $('#sCap').textContent=v.a[idx];
+  $$('.trs button',modal).forEach((b,i)=>b.classList.toggle('on',i===idx));
+  const st=$('#stage'); st.classList.toggle('speaking',P.playing); st.classList.toggle('paused',!P.playing);
+}
+function startTimer(){
+  stopTimer(); P.playing=true;
+  P.timer=setInterval(()=>{
+    P.t=Math.min(1,P.t+100/(P.v.a.length*3400));
+    if(P.t>=1){stopTimer();P.playing=false}
+    paint();
+  },100);
+  paint();
+}
+function stopTimer(){if(P&&P.timer){clearInterval(P.timer);P.timer=null}}
+function pause(){if(!P)return;stopTimer();P.playing=false;paint()}
+function toggle(){if(!P)return;if(P.playing)pause();else{if(P.t>=1)P.t=0;startTimer()}}
+function openVideo(id){
+  const v=VID[id]; if(!v) return;
+  if(!P) lastFocus=document.activeElement;
+  stopTimer();
+  P={v,t:0,playing:false,timer:null};
+  prof.history=[id].concat(prof.history.filter(x=>x!==id)).slice(0,20); saveProf();
+  modal.innerHTML=modalHTML(v);
+  modal.hidden=false;
+  document.body.style.overflow='hidden';
+  startTimer();
+  const c=$('.m-close',modal); if(c) c.focus();
+}
+function closeVideo(){
+  stopTimer(); P=null; modal.hidden=true; modal.innerHTML='';
+  document.body.style.overflow='';
+  if(lastFocus&&lastFocus.focus&&document.contains(lastFocus)) lastFocus.focus();
+  if(state.route==='profile') render();
+  if(state.route==='explore'){const c=$('#exploreChips');if(c)$$('[data-action="scope"]',c).forEach(b=>{if(b.dataset.id==='saved')b.textContent='Saved ('+prof.saved.length+')'});if(state.topic==='saved')renderExplore()}
+}
+
+/* ================= events ================= */
+function dataText(){return JSON.stringify({profile:prof,myPosts:state.posts.filter(p=>p.mine)},null,2)}
+document.addEventListener('click',e=>{
+  const link=e.target.closest('a[data-route]');
+  if(link){e.preventDefault();go(link.dataset.route);return}
+  const el=e.target.closest('[data-action]'); if(!el) return;
+  const a=el.dataset.action, id=el.dataset.id;
+  if(a==='play') openVideo(id);
+  else if(a==='close') closeVideo();
+  else if(a==='toggle') toggle();
+  else if(a==='seek'){ if(!P)return; P.t=(+el.dataset.i)/P.v.a.length+0.001; if(!P.playing)startTimer(); else paint(); }
+  else if(a==='go'){ if(P)closeVideo(); go(id); }
+  else if(a==='topic'){ if(P)closeVideo(); state.topic=id; state.q=''; go('explore'); }
+  else if(a==='scope'){
+    state.topic=id;
+    if(el.dataset.go){ state.q=''; go('explore'); }
+    else { $$('#exploreChips [data-action="scope"]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id))); renderExplore(); }
+  }
+  else if(a==='clearq'){ state.q=''; const i=$('#exploreQ'); if(i){i.value='';i.focus()} renderExplore(); }
+  else if(a==='suggest'){ if(P)closeVideo(); ask(el.dataset.q); }
+  else if(a==='helpful'){ const fb=$('#fb'); if(fb) fb.innerHTML='<span class="muted">Thank you. Your feedback helps us improve.</span>'; }
+  else if(a==='save'){
+    const i=prof.saved.indexOf(id); if(i>=0)prof.saved.splice(i,1); else prof.saved.unshift(id); saveProf();
+    el.outerHTML=savedBtn(id); const nb=$(`[data-action="save"][data-id="${id}"]`,modal); if(nb)nb.focus();
+  }
+  else if(a==='followup'){ const v=VID[id]; closeVideo(); go('ask'); const q=$('#askQ'); if(q){q.value='About “'+v.q.replace(/\?$/,'')+'”: ';q.focus();q.setSelectionRange(q.value.length,q.value.length)} }
+  else if(a==='mood'){ prof.checkins[dkey(new Date())]=id; saveProf(); const c=$('#checkin'); if(c){c.innerHTML=checkinHTML(); const b=$(`[data-action="mood"][data-id="${id}"]`,c); if(b)b.focus()} }
+  else if(a==='stage'){ prof.stage=prof.stage===id?'':id; saveProf(); syncChips(); renderForYou(); const ps=$('#profStage'); if(ps){const s=STAGES.find(x=>x.id===prof.stage);ps.textContent=s?s.name:'No life stage chosen yet'} if(state.route==='profile')render(),$(`[data-action="stage"][data-id="${id}"]`).focus(); }
+  else if(a==='interest'){ const i=prof.interests.indexOf(id); if(i>=0)prof.interests.splice(i,1); else prof.interests.push(id); saveProf(); syncChips(); }
+  else if(a==='circle'){ state.circle=id; $$('[data-action="circle"]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id))); renderFeed(); const s=$('#postCircle'); if(s&&id!=='all')s.value=id; }
+  else if(a==='metoo'){ const i=prof.metoo.indexOf(id); if(i>=0)prof.metoo.splice(i,1); else prof.metoo.push(id); saveProf(); refreshPost(id); const b=$(`[data-post="${id}"] [data-action="metoo"]`); if(b)b.focus(); }
+  else if(a==='replies'){ state.open.has(id)?state.open.delete(id):state.open.add(id); refreshPost(id); const b=$(`[data-post="${id}"] [data-action="replies"]`); if(b)b.focus(); }
+  else if(a==='savepost'){ const i=prof.savedPosts.indexOf(id); if(i>=0)prof.savedPosts.splice(i,1); else prof.savedPosts.push(id); saveProf(); refreshPost(id); const b=$(`[data-post="${id}"] [data-action="savepost"]`); if(b)b.focus(); }
+  else if(a==='report'){ if(!prof.reported.includes(id))prof.reported.push(id); saveProf(); refreshPost(id); }
+  else if(a==='unreport'){ prof.reported=prof.reported.filter(x=>x!==id); saveProf(); refreshPost(id); }
+  else if(a==='openpost'){ state.circle='all'; go('community'); const p=$(`[data-post="${id}"]`); if(p)p.scrollIntoView({block:'center'}); }
+  else if(a==='showdata'){
+    const d=$('#dataArea'); if(!d) return;
+    d.innerHTML=`<pre class="datapre" id="dataPre" tabindex="0"></pre><div class="ans-act" style="margin-top:.6rem"><button class="btn btn-primary btn-sm" data-action="copydata">Copy</button><button class="btn btn-ghost btn-sm" data-action="hidedata">Hide</button><span class="hint" id="copyMsg" role="status"></span></div>`;
+    $('#dataPre').textContent=dataText();
+  }
+  else if(a==='hidedata'){ const d=$('#dataArea'); if(d)d.innerHTML=''; }
+  else if(a==='copydata'){
+    const msg=$('#copyMsg'), txt=dataText();
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($('#dataPre'));const s=getSelection();s.removeAllRanges();s.addRange(r);if(msg)msg.textContent='Selected. Press Ctrl or Cmd + C to copy.'};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(()=>{if(msg)msg.textContent='Copied.'}).catch(fallback); else fallback();
+  }
+  else if(a==='delask'){
+    const d=$('#dataArea'); if(!d) return;
+    d.innerHTML=`<p style="margin:.8rem 0 .6rem;font-size:.92rem">This erases your preferences, saved items, check-ins and your own posts on this device. It cannot be undone.</p><div class="ans-act"><button class="btn btn-dark btn-sm" data-action="delyes">Yes, delete everything</button><button class="btn btn-ghost btn-sm" data-action="hidedata">Cancel</button></div>`;
+  }
+  else if(a==='delyes'){
+    try{localStorage.removeItem(PKEY);localStorage.removeItem(QKEY)}catch(err){}
+    prof=fresh(); state.posts=clone(SEED); state.open.clear(); state.circle='all'; state.topic='all'; state.q='';
+    state.thread=[{q:`Why is my period late?`,vid:'cycle-1',example:true}];
+    render();
+    const d=$('#dataArea'); if(d)d.innerHTML='<p class="hint" role="status" style="margin-top:.8rem">Done. Your data on this device has been erased.</p>';
+  }
+});
+document.addEventListener('submit',e=>{
+  const f=e.target;
+  e.preventDefault();
+  if(f.id==='heroAsk'){ const i=$('#heroQ'); const q=i.value; i.value=''; ask(q); }
+  else if(f.id==='askForm'){ const i=$('#askQ'); const q=i.value; i.value=''; ask(q); const n=$('#askQ'); if(n)n.focus(); }
+  else if(f.id==='postForm'){
+    const text=$('#postText').value.trim(); if(!text) return;
+    const anon=$('#postAnon').checked;
+    const p={id:'u'+Date.now(),name:anon?'Anonymous':(prof.name.trim()||'You'),anon,circle:$('#postCircle').value,time:'Just now',me:0,text,replies:[],mine:true};
+    state.posts.unshift(p); saveMine();
+    if(state.circle!=='all'&&state.circle!==p.circle){state.circle='all';$$('[data-action="circle"]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id==='all')))}
+    renderFeed(); $('#postText').value=''; $('#postMsg').textContent='Shared. Thank you for being open.';
+  }
+  else if(f.classList.contains('reply-form')){
+    const i=f.querySelector('input'), text=i.value.trim(); if(!text) return;
+    const p=state.posts.find(x=>x.id===f.dataset.id); if(!p) return;
+    p.replies.push({name:prof.name.trim()||'You',time:'Just now',text}); if(p.mine)saveMine(); refreshPost(p.id);
+    const ni=$(`[data-post="${p.id}"] .reply-form input`); if(ni)ni.focus();
+  }
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='exploreQ'){ state.q=t.value; renderExplore(); }
+  else if(t.id==='profName'){
+    prof.name=t.value.slice(0,40); saveProf();
+    const av=$('#profAv'); if(av){const n=prof.name.trim(); if(n){av.textContent=n.charAt(0).toUpperCase()}else{av.innerHTML=person}}
+  }
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='profLang'){ prof.lang=t.value; saveProf(); const n=$('#langNote'); if(n)n.textContent=langNote(); }
+  else if(t.id==='optPers'){ prof.personalise=t.checked; saveProf(); }
+  else if(t.id==='optAnon'){ prof.anon=t.checked; saveProf(); }
+});
+document.addEventListener('keydown',e=>{
+  if(modal.hidden) return;
+  if(e.key==='Escape'){closeVideo();return}
+  if((e.key===' '||e.key==='Enter')&&e.target.id==='stage'){e.preventDefault();toggle();return}
+  if(e.key==='Tab'){
+    const f=$$('button,[tabindex="0"]',modal).filter(x=>!x.disabled&&x.offsetParent!==null);
+    if(!f.length) return;
+    const first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+  }
+});
+
+state.route=parse();
+render();
+})();
+</script>
+
+</body>
+</html>
