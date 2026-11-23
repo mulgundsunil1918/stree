@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Stree: a women's health companion. Your body. Your questions. Your space. (Preview with sample content, not medical advice.)">
 <style>[hidden]{display:none!important}:root{color-scheme:light}</style>
+<meta name="theme-color" content="#FFF5F9">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 4c4.2 4.2 5.2 9.8 0 18-5.2-8.2-4.2-13.8 0-18z' fill='%23E099DB'/%3E%3Cpath d='M5 11c5.6-.3 9.8 3.8 11 11-6.2.4-10.8-3.6-11-11z' fill='%23F4B6CF'/%3E%3Cpath d='M27 11c-5.6-.3-9.8 3.8-11 11 6.2.4 10.8-3.6 11-11z' fill='%23B19ADE'/%3E%3C/svg%3E">
 <title>Stree</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -331,12 +336,120 @@ a{color:inherit}
 .more button:focus-visible{outline:3px solid var(--focus)}
 .more small{color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:759px){.m-info{padding-right:0}}
+/* ===== tools ===== */
+.seg{display:flex;background:var(--blush);border-radius:999px;padding:4px;gap:4px;width:max-content;max-width:100%}
+.seg a{padding:.55rem 1.4rem;border-radius:999px;text-decoration:none;font-weight:700;font-size:.92rem;color:var(--ink-soft);min-height:40px;display:inline-flex;align-items:center}
+.seg a[aria-current=page]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(163,54,111,.2)}
+.toolgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+@media(min-width:900px){.toolgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}}
+.tcompact{all:unset;box-sizing:border-box;cursor:pointer;flex:0 0 min(158px,42vw);display:flex;flex-direction:column;gap:.2rem;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:.9rem;scroll-snap-align:start;min-width:0}
+.tcompact:hover{border-color:var(--pink)}
+.tcompact:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.tcompact b{font-size:.98rem;line-height:1.25}
+.tcompact small{font-size:.78rem;color:var(--ink-soft);line-height:1.35}
+.tool-layout{display:grid;gap:1rem;grid-template-areas:"form" "res" "log";align-items:start}
+.tool-layout>.a-form{grid-area:form}
+.tool-layout>.a-res{grid-area:res;min-width:0}
+.tool-layout>.a-log{grid-area:log}
+@media(min-width:900px){.tool-layout{grid-template-columns:380px minmax(0,1fr);grid-template-areas:"form res" "log res"}}
+.card input[type=date].field,.card input[type=number].field{min-height:48px;font-size:1rem}
+input[type=date].field{appearance:none;-webkit-appearance:none}
+.stepper{display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.stepper button{width:52px;min-height:48px;border:0;background:var(--blush);font-size:1.4rem;font-weight:700;line-height:1;color:var(--ink)}
+.stepper button:active{background:var(--pink)}
+.stepper input{flex:1;min-width:0;border:0;text-align:center;font-size:1.15rem;font-weight:700;background:transparent;-moz-appearance:textfield}
+.stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.stepper input:focus{outline:none;background:var(--bg)}
+.stepper:focus-within{border-color:var(--lavender)}
+.two-in{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.rt{background:var(--bg);border-radius:16px;padding:.8rem .9rem;min-width:0}
+.rt.wide{grid-column:1/-1}
+.rt.hl{background:var(--blush)}
+.rt small{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--rose-ink);margin-bottom:.15rem}
+.rt b{display:block;font:500 1.3rem/1.2 var(--font-display);overflow-wrap:anywhere}
+.rt span{display:block;font-size:.85rem;color:var(--ink-soft);margin-top:.1rem}
+.rt .prog{margin-top:.6rem}
+.prog{height:10px;border-radius:99px;background:var(--mist);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--rose-ink);border-radius:inherit}
+.note{background:var(--bg);border-left:4px solid var(--orchid);border-radius:4px 14px 14px 4px;padding:.65rem .9rem;font-size:.9rem;margin-top:.8rem}
+.ms{display:grid;gap:.35rem}
+.ms>div{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;padding:.55rem .75rem;border-radius:12px;background:var(--bg);font-size:.92rem}
+.ms small{color:var(--ink-soft);font-size:.82rem;text-align:right}
+.ms .past{opacity:.55}
+.ms .now{background:var(--blush);font-weight:700}
+.calhead{display:flex;align-items:center;justify-content:space-between;margin:1.1rem 0 .5rem}
+.calhead b{font:500 1.15rem var(--font-display)}
+.calhead .chip{min-width:44px;font-size:1.2rem;padding:.3rem .8rem}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .dow{text-align:center;font-size:.72rem;font-weight:700;color:var(--ink-soft);padding:.2rem 0}
+.cal button{aspect-ratio:1;min-height:40px;border:0;border-radius:12px;background:transparent;font-weight:600;font-size:.92rem;font-variant-numeric:tabular-nums;color:var(--ink);padding:0}
+.cal button:hover{background:var(--blush)}
+.cal .d-p,.legend .d-p{background:var(--rose-ink);color:#fff}
+.cal .d-pp,.legend .d-pp{background:var(--pink)}
+.cal .d-f,.legend .d-f{background:var(--lilac)}
+.cal .d-o,.legend .d-o{background:var(--orchid);box-shadow:inset 0 0 0 2px var(--ink)}
+.cal .d-today{outline:2px solid var(--ink);outline-offset:-2px}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:.7rem 0 .3rem;font-size:.82rem;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.legend i{width:14px;height:14px;border-radius:5px;display:inline-block}
+.loglist{display:grid;gap:.35rem}
+.logrow{display:flex;align-items:center;gap:.6rem;background:var(--bg);border-radius:12px;padding:.35rem .5rem .35rem .75rem;font-size:.92rem;font-weight:600}
+.logrow small{margin-left:auto;color:var(--ink-soft);font-weight:500}
+.logrow .x{width:36px;height:36px;border:0;border-radius:50%;background:transparent;font-size:1.3rem;color:var(--ink-soft)}
+.logrow .x:hover{background:var(--blush)}
+.bmi{margin:1.2rem .4rem 2rem}
+.bmi .bar{display:flex;height:14px;border-radius:99px;position:relative}
+.bmi .bar i{display:block;height:100%}
+.bmi .bar i:first-child{border-radius:99px 0 0 99px}
+.bmi .bar i:last-of-type{border-radius:0 99px 99px 0}
+.bmi .bar u{position:absolute;top:-6px;bottom:-6px;width:5px;margin-left:-2px;background:var(--ink);border-radius:4px;text-decoration:none}
+.bmi .ticks{position:relative;height:1.2rem;margin-top:.5rem;font-size:.75rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.bmi .ticks span{position:absolute;transform:translateX(-50%)}
+.pt{display:grid;justify-items:center;padding-block:1.2rem}
+.pt-wrap{position:relative;display:grid;place-items:center;width:min(66vw,260px);aspect-ratio:1;margin:.4rem auto 1rem}
+.pt-circle{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--pink) 72%);box-shadow:0 18px 40px -18px rgba(163,54,111,.6);transition:transform .4s ease-in-out}
+.pt-circle.squeeze{transform:scale(.68)}
+.pt-txt{position:relative;text-align:center;display:grid;gap:.15rem}
+.pt-txt b{font:500 1.3rem var(--font-display)}
+.pt-txt span{font:500 2.8rem/1 var(--font-display);font-variant-numeric:tabular-nums}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:.8rem}
+.days button{aspect-ratio:1;min-height:40px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;color:var(--ink);padding:0}
+.days button[aria-pressed=true]{background:var(--rose-ink);border-color:var(--rose-ink);color:#fff}
+
+/* ===== mobile + touch ===== */
+html{-webkit-text-size-adjust:100%;scroll-padding-top:76px}
+button,a,.chip,.tile,.vcard,.tcompact{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.top .top-cta{display:none}
+@media(min-width:900px){.top .top-cta{display:inline-flex}}
+@media(max-width:899px){
+  .strip{font-size:.72rem;padding:.35rem .75rem}
+  .top-in{height:56px}
+  .brand{font-size:1.45rem}
+  .hero{padding-block:1.1rem .8rem;gap:1.3rem}
+  .hero .lead{font-size:1rem;margin-bottom:1.1rem}
+  .hero-vis{padding:1rem;border-radius:26px}
+  .sec{padding-block:1.5rem 0}
+  .page-h{padding-block:1.2rem .9rem}
+  .btn{min-height:44px}
+  .btn-sm{min-height:40px}
+  .chip{min-height:40px;padding:.5rem 1rem}
+  .pill-btn{min-height:40px}
+  .rail,.chips.scroll{margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+  .rail .vcard{flex-basis:min(172px,42vw)}
+  .c-row select{font-size:1rem;min-height:44px}
+  .askbox{padding-left:1rem}
+  .band{margin-top:1.8rem;padding-block:1.6rem 1.8rem}
+  .shame{padding:1.2rem;border-radius:24px}
+  .modal{align-items:flex-end;padding:0}
+  .m-card{border-radius:28px 28px 0 0;max-height:94vh;max-height:94dvh;padding-bottom:calc(1.1rem + env(safe-area-inset-bottom,0px))}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<div class="strip">Preview build. Sample content for illustration, not medical advice.</div>
+<div class="strip">Preview. Sample content, not medical advice.</div>
 
 <header class="top">
   <div class="wrap top-in">
@@ -387,7 +500,11 @@ const ICON={
   pregnancy:'<path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.500-5-6-5 0 3.500 2.500 5 6 5z"/>',
   postnatal:'<path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M8 8c1-2 3-3 4-3s3 1 4 3"/>',
   menopause:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>',
-  everyday:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8v8M8 12h8"/>'
+  everyday:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="M12 8v8M8 12h8"/>',
+  due:'<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+  bmi:'<rect x="4" y="5" width="16" height="14" rx="4"/><path d="M8.5 11a3.5 3.5 0 0 1 7 0"/><path d="M12 11l1.6-2"/>',
+  pelvic:'<circle cx="12" cy="13" r="7"/><path d="M12 13V9M9.5 3h5"/>',
+  challenge:'<circle cx="12" cy="12" r="8"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>'
 };
 
 const TOPICS=[
@@ -613,12 +730,12 @@ const ROUTES=['home','explore','ask','community','profile'];
 const PKEY='stree-profile-v1',QKEY='stree-posts-v1';
 function readJSON(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==='object'?v:d}catch(e){return d}}
 function writeJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-const fresh=()=>({name:'',stage:'',interests:[],lang:'en',personalise:true,anon:false,saved:[],history:[],savedPosts:[],reported:[],metoo:[],checkins:{}});
+const fresh=()=>({name:'',stage:'',interests:[],lang:'en',personalise:true,anon:false,saved:[],history:[],savedPosts:[],reported:[],metoo:[],checkins:{},periods:[],tools:{}});
 let prof=Object.assign(fresh(),readJSON(PKEY,{}));
 const saveProf=()=>writeJSON(PKEY,prof);
 const saveMine=()=>writeJSON(QKEY,state.posts.filter(p=>p.mine));
 const state={
-  route:'home',topic:'all',q:'',circle:'all',open:new Set(),
+  route:'home',tool:null,cal:null,topic:'all',q:'',circle:'all',open:new Set(),
   thread:[{q:`Why is my period late?`,vid:'cycle-1',example:true}],
   posts:[]
 };
@@ -758,6 +875,11 @@ function viewHome(){
     <div class="hero-vis" aria-label="Example videos">${vcard(VID['cycle-1'])}${vcard(VID['pcos-0'])}</div>
   </section>
 
+  <section class="wrap sec">
+    <div class="sec-h"><div><h2>Quick tools</h2><p>Simple calculators and trackers. No sign-up.</p></div><button class="link" data-action="go" data-id="tools">All tools</button></div>
+    <div class="rail">${TOOLS.map(t=>`<button class="tcompact" data-action="tool" data-id="${t.id}"><span class="ico" style="--tint:${t.tint}">${icon(t.icon)}</span><b>${esc(t.short)}</b><small>${esc(t.blurb)}</small></button>`).join('')}</div>
+  </section>
+
   <section class="wrap sec"><div class="two">
     <div class="card" id="checkin">${checkinHTML()}</div>
     <div class="card tip">${tipHTML()}</div>
@@ -819,7 +941,7 @@ function viewExplore(){
   const sel=state.topic;
   const chips=[['all','All topics']].concat(TOPICS.map(t=>[t.id,t.short]),[['ntm','Nobody told me this'],['saved','Saved ('+prof.saved.length+')']])
     .map(([id,l])=>`<button class="chip" data-action="scope" data-id="${id}" aria-pressed="${sel===id}">${esc(l)}</button>`).join('');
-  return `<section class="wrap page-h"><p class="eyebrow">Explore</p><h1>Learn about <em>your body</em></h1><p>Search, or pick a topic. Every video is under a minute and shows its sources.</p></section>
+  return seg()+`<section class="wrap page-h"><p class="eyebrow">Explore</p><h1>Learn about <em>your body</em></h1><p>Search, or pick a topic. Every video is under a minute and shows its sources.</p></section>
   <div class="wrap">
     <div class="searchrow"><label class="sr" for="exploreQ">Search videos</label><input id="exploreQ" class="field" type="search" placeholder="Search, like “pain”, “iron” or “PCOS”" value="${esc(state.q)}" autocomplete="off"></div>
     <div class="chips scroll" id="exploreChips" role="group" aria-label="Filter by topic">${chips}</div>
@@ -1012,22 +1134,394 @@ function viewProfile(){
   </div>`;
 }
 
+/* ================= tools ================= */
+const TOOLS=[
+ {id:'cycle',icon:'cycle',name:'Period & ovulation calculator',short:'Period dates',blurb:'Your next period, ovulation and fertile days.',tint:'#F4B6CF'},
+ {id:'due',icon:'due',name:'Due date & pregnancy week',short:'Due date',blurb:'Due date, week and trimester.',tint:'#E099DB'},
+ {id:'bmi',icon:'bmi',name:'BMI & healthy range',short:'BMI',blurb:'A simple number, with its limits explained.',tint:'#C5BDE6'},
+ {id:'pelvic',icon:'pelvic',name:'Pelvic floor timer',short:'Pelvic floor',blurb:'Guided squeeze and relax sets.',tint:'#F9D3E3'},
+ {id:'challenge',icon:'challenge',name:'Wellness challenges',short:'Challenges',blurb:'Gentle 7 and 14 day habits.',tint:'#D8D9EB'}
+];
+const TMAP=Object.fromEntries(TOOLS.map(t=>[t.id,t]));
+const TOOLNOTE={
+ cycle:'Dates are estimates worked out from what you enter. Ovulation and fertile days are predictions, not confirmed, and they are less reliable if your cycles vary. This is not a method of contraception.',
+ due:'Only a scan can confirm your due date, and early scans may move it. Timings shown are typical. Your care team may follow a different schedule.',
+ bmi:'BMI is a rough screening number. It does not measure body fat, muscle or how healthy you feel, and it is not meant for use in pregnancy or under age 18. A doctor can look at the whole picture.',
+ pelvic:'This is general information, not a treatment plan. Stop if anything hurts. If you leak urine, feel heaviness, or are unsure you are doing it right, ask a pelvic health physiotherapist or your doctor.',
+ challenge:'Challenges are optional and personal. There are no targets to hit and nothing to lose. They are habits to try, not medical advice.'
+};
+const CHALLENGES=[
+ {id:'water',name:'7-day water habit',days:7,task:'Sip water regularly through the day. Keep a bottle where you can see it.'},
+ {id:'sleep',name:'7-day wind-down',days:7,task:'Go to bed and get up at about the same time. Put screens away 30 minutes before bed.'},
+ {id:'move',name:'14-day movement',days:14,task:'Move for at least 10 minutes in a way you enjoy. A walk counts.'},
+ {id:'calm',name:'7-day pause',days:7,task:'Take 5 minutes to breathe slowly or sit quietly.'}
+];
+/* [min, max, default] */
+const STEP={cycle:{len:[15,60,28],plen:[1,12,5]},due:{len:[21,45,28]},pelvic:{hold:[2,10,5],reps:[3,15,8]}};
+const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
+const tc=n=>prof.tools[n]||(prof.tools[n]={});
+const cv=(n,f)=>{const o=tc(n);return (o[f]!==undefined&&o[f]!=='')?o[f]:(STEP[n]&&STEP[n][f]?STEP[n][f][2]:'')};
+const pd=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?new Date(+m[1],+m[2]-1,+m[3],12):null};
+const addD=(d,n)=>{const x=new Date(d.getTime());x.setDate(x.getDate()+n);return x};
+const diffD=(a,b)=>Math.round((a-b)/864e5);
+const todayD=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate(),12)};
+const fd=(d,y)=>d.toLocaleDateString(undefined,y?{weekday:'short',day:'numeric',month:'short',year:'numeric'}:{weekday:'short',day:'numeric',month:'short'});
+const rel=n=>n===0?'today':n===1?'tomorrow':n>0?'in '+n+' days':Math.abs(n)+' days ago';
+
+function seg(){
+  return `<div class="wrap" style="padding-top:1rem"><div class="seg" role="group" aria-label="Explore sections"><a href="#explore" data-route="explore" data-seg>Videos</a><a href="#tools" data-route="tools" data-seg>Tools</a></div></div>`;
+}
+function stepper(tool,field,label,hint){
+  const [mn,mx]=STEP[tool][field], v=cv(tool,field), id='t-'+tool+'-'+field;
+  return `<div class="form-row"><label for="${id}">${label}</label><div class="stepper"><button type="button" data-action="t-step" data-tool="${tool}" data-field="${field}" data-d="-1" aria-label="Decrease">&minus;</button><input id="${id}" type="number" inputmode="numeric" min="${mn}" max="${mx}" value="${v}" data-tool="${tool}" data-field="${field}"><button type="button" data-action="t-step" data-tool="${tool}" data-field="${field}" data-d="1" aria-label="Increase">+</button></div><span class="hint">${hint}</span></div>`;
+}
+function emptyRes(msg,tool){
+  return `<div class="empty"><p>${msg}</p><button class="btn btn-primary btn-sm" data-action="t-example" data-tool="${tool}">See an example</button></div>`;
+}
+
+/* ----- period & ovulation ----- */
+function periodAvg(){
+  const p=prof.periods.slice(0,7), d=[];
+  for(let i=0;i<p.length-1;i++){const a=pd(p[i]),b=pd(p[i+1]);if(a&&b){const n=diffD(a,b);if(n>=15&&n<=60)d.push(n)}}
+  return d.length?Math.round(d.reduce((a,b)=>a+b,0)/d.length):0;
+}
+function calHTML(last,len,plen){
+  const now=todayD(), nk=dkey(now);
+  const cal=state.cal||(state.cal={y:now.getFullYear(),m:now.getMonth()});
+  const marks={}, set=(d,t)=>{const k=dkey(d);(marks[k]=marks[k]||{})[t]=1};
+  for(let i=0;i<16;i++){
+    const s=addD(last,i*len), ov=addD(s,len-14);
+    for(let j=0;j<plen;j++) set(addD(s,j),i===0?'p':'pp');
+    for(let j=-5;j<=1;j++) set(addD(ov,j),'f');
+    set(ov,'o');
+  }
+  prof.periods.forEach(ds=>{const d=pd(ds);if(d)for(let j=0;j<plen;j++)set(addD(d,j),'p')});
+  const first=new Date(cal.y,cal.m,1,12), blanks=(first.getDay()+6)%7, dim=new Date(cal.y,cal.m+1,0).getDate();
+  let cells='';
+  for(let i=0;i<blanks;i++) cells+='<span></span>';
+  for(let n=1;n<=dim;n++){
+    const d=new Date(cal.y,cal.m,n,12), k=dkey(d), mk=marks[k]||{};
+    const cls=mk.p?'d-p':mk.pp?'d-pp':mk.o?'d-o':mk.f?'d-f':'';
+    const lab=[mk.p?'period':mk.pp?'predicted period':'',mk.o&&!mk.p&&!mk.pp?'estimated ovulation':'',mk.f&&!mk.o&&!mk.p&&!mk.pp?'estimated fertile day':''].filter(Boolean).join(', ');
+    cells+=`<button type="button" class="${cls}${k===nk?' d-today':''}" data-action="t-pick" data-date="${k}" aria-label="${esc(fd(d,true))}${lab?', '+lab:''}">${n}</button>`;
+  }
+  const title=new Date(cal.y,cal.m,1,12).toLocaleDateString(undefined,{month:'long',year:'numeric'});
+  return `<div class="calhead"><button type="button" class="chip" data-action="t-cal" data-d="-1" aria-label="Previous month">&lsaquo;</button><b>${esc(title)}</b><button type="button" class="chip" data-action="t-cal" data-d="1" aria-label="Next month">&rsaquo;</button></div>
+  <div class="cal" role="group" aria-label="${esc(title)}">${['M','T','W','T','F','S','S'].map(x=>`<span class="dow">${x}</span>`).join('')}${cells}</div>
+  <div class="legend"><span><i class="d-p"></i>Period</span><span><i class="d-pp"></i>Predicted period</span><span><i class="d-f"></i>Fertile window</span><span><i class="d-o"></i>Ovulation</span></div>
+  <p class="hint">Tap any day to set it as the first day of your last period.</p>`;
+}
+function cycleResult(){
+  const c=tc('cycle'), last=pd(c.last);
+  if(!last) return emptyRes('Pick the first day of your last period to see your dates.','cycle');
+  const len=clamp(+cv('cycle','len')||28,15,60), plen=clamp(+cv('cycle','plen')||5,1,12), t0=todayD();
+  const cyc=[...Array(16)].map((_,i)=>{const s=addD(last,i*len);return {s,ov:addD(s,len-14)}});
+  const ni=cyc.findIndex((x,i)=>i>=1&&diffD(x.s,t0)>=0), oi=cyc.findIndex(x=>diffD(x.ov,t0)>=0);
+  const nxt=ni>=0?cyc[ni]:null, ovc=oi>=0?cyc[oi]:null;
+  const inWin=cyc.some(x=>diffD(t0,addD(x.ov,-5))>=0&&diffD(t0,addD(x.ov,1))<=0);
+  const k=diffD(t0,last)>=0?Math.floor(diffD(t0,last)/len):null;
+  const day=k===null?null:diffD(t0,addD(last,k*len))+1;
+  const notes=[];
+  if(ni>1) notes.push('That date is more than one cycle ago, so these dates are projected forward. Update it to the start of your latest period for better accuracy.');
+  if(len<21||len>35) notes.push('Cycles shorter than 21 or longer than 35 days are worth mentioning to your doctor if they happen regularly.');
+  const up=cyc.filter((x,i)=>i>=1&&diffD(x.s,t0)>=0).slice(0,3);
+  return `<div class="res-grid">
+    <div class="rt hl"><small>Next period</small><b>${nxt?esc(fd(nxt.s)):'Update your date'}</b><span>${nxt?rel(diffD(nxt.s,t0)):''}</span></div>
+    <div class="rt"><small>Ovulation (estimate)</small><b>${ovc?esc(fd(ovc.ov)):'-'}</b><span>${ovc?rel(diffD(ovc.ov,t0)):''}</span></div>
+    <div class="rt wide"><small>Fertile window (estimate)</small><b>${ovc?esc(fd(addD(ovc.ov,-5)))+' to '+esc(fd(addD(ovc.ov,1))):'-'}</b><span>${inWin?'You are in an estimated fertile window now.':'Six days, ending the day after ovulation.'}</span></div>
+    ${day?`<div class="rt wide"><small>Today</small><b>Day ${day} of your cycle</b></div>`:''}
+  </div>
+  ${notes.map(n=>`<p class="note">${esc(n)}</p>`).join('')}
+  ${calHTML(last,len,plen)}
+  ${up.length?`<h3 style="margin:1rem 0 .5rem;font-size:1.05rem">Your next periods</h3><div class="ms">${up.map(x=>`<div><span>${esc(fd(x.s,true))}</span><small>${rel(diffD(x.s,t0))}</small></div>`).join('')}</div>`:''}`;
+}
+function logHTML(){
+  const ps=prof.periods.filter(s=>pd(s)), avg=periodAvg();
+  return `<h3>My period log</h3>`+(ps.length
+    ?`<div class="loglist">${ps.map((s,i)=>{const nx=ps[i+1],gap=nx?diffD(pd(s),pd(nx)):0;return `<div class="logrow"><span>${esc(fd(pd(s),true))}</span><small>${gap?gap+' day cycle':'first logged'}</small><button type="button" class="x" data-action="t-rmlog" data-date="${esc(s)}" aria-label="Remove ${esc(s)}">&times;</button></div>`}).join('')}</div>`
+    :`<p class="hint">Save a start date to build a history. Your average cycle length is worked out from it.</p>`)
+    +(avg?`<p style="margin:.8rem 0 .5rem;font-size:.95rem">Your average cycle: <b>${avg} days</b></p><button class="btn btn-ghost btn-sm" data-action="t-useavg" data-avg="${avg}">Use ${avg} days above</button>`:'');
+}
+function cycleBody(){
+  const c=tc('cycle');
+  return `<div class="wrap tool-layout">
+    <div class="card a-form">
+      <div class="form-row"><label for="t-cycle-last">First day of your last period</label><input class="field" id="t-cycle-last" type="date" data-tool="cycle" data-field="last" value="${esc(c.last||'')}"></div>
+      ${stepper('cycle','len','Average cycle length','Days from the first day of one period to the first day of the next. 28 is a common starting point.')}
+      ${stepper('cycle','plen','How long your period lasts','Days of bleeding.')}
+      <button class="btn btn-primary btn-sm" data-action="t-log">Save this date to my log</button>
+    </div>
+    <div class="card a-res" id="toolResult">${cycleResult()}</div>
+    <div class="card a-log" id="cycleLog">${logHTML()}</div>
+  </div>`;
+}
+
+/* ----- due date ----- */
+function dueResult(){
+  const c=tc('due'), d=pd(c.date), method=c.method||'lmp';
+  if(!d) return emptyRes(method==='lmp'?'Pick the first day of your last period to see your due date.':'Pick your conception date to see your due date.','due');
+  const len=clamp(+cv('due','len')||28,21,45);
+  const start=method==='lmp'?addD(d,len-28):addD(d,-14), due=addD(start,280), t0=todayD(), gd=diffD(t0,start);
+  let status;
+  if(gd<0){
+    status=`<div class="rt wide"><small>Where you are now</small><b>Not started yet</b><span>The date you picked is in the future. Check it and try again.</span></div>`;
+  }else if(gd>294){
+    status=`<div class="rt wide"><small>Where you are now</small><b>Past 42 weeks</b><span>Please speak to your care team about next steps.</span></div>`;
+  }else{
+    const wk=Math.floor(gd/7), dy=gd%7, tri=wk<14?'First':wk<28?'Second':'Third', n=diffD(due,t0);
+    status=`<div class="rt wide hl"><small>You are</small><b>${wk} weeks${dy?' and '+dy+' day'+(dy>1?'s':''):''}</b><span>${tri} trimester · ${n>0?n+' days to go':n===0?'due today':(-n)+' days past the estimated date'}</span><div class="prog" role="img" aria-label="${Math.round(gd/280*100)} percent of the way"><i style="width:${clamp(Math.round(gd/280*100),0,100)}%"></i></div></div>`;
+  }
+  const MS=[
+   ['Second trimester begins',98],['Anomaly scan window (often 18 to 22 weeks)',126,154],['Glucose screening often offered (24 to 28 weeks)',168,196],
+   ['Third trimester begins',196],['Early term begins (37 weeks)',259],['Full term begins (39 weeks)',273],['Estimated due date (40 weeks)',280]
+  ];
+  const rows=MS.map(([l,a,b])=>{
+    const s=addD(start,a), e=b?addD(start,b):s, now=diffD(t0,s)>=0&&diffD(t0,e)<=0, past=diffD(t0,e)>0;
+    return `<div class="${now?'now':past?'past':''}"><span>${esc(l)}</span><small>${b?esc(fd(s))+' to '+esc(fd(e)):esc(fd(s,true))}</small></div>`;
+  }).join('');
+  return `<div class="res-grid"><div class="rt wide hl"><small>Estimated due date</small><b>${esc(fd(due,true))}</b></div>${status}</div>
+   <h3 style="margin:1rem 0 .5rem;font-size:1.05rem">Key dates</h3><div class="ms">${rows}</div>
+   <p class="note">Most babies arrive within a couple of weeks of their due date. If you have heavy bleeding, severe pain, or your baby moves less than usual, contact your care team right away.</p>`;
+}
+function dueBody(){
+  const c=tc('due'), m=c.method||'lmp';
+  return `<div class="wrap tool-layout">
+    <div class="card a-form">
+      <div class="form-row"><label for="t-due-method">I know my</label><select class="field" id="t-due-method" data-tool="due" data-field="method"><option value="lmp"${m==='lmp'?' selected':''}>First day of last period</option><option value="conception"${m==='conception'?' selected':''}>Date of conception</option></select></div>
+      <div class="form-row"><label for="t-due-date">${m==='lmp'?'First day of your last period':'Date of conception'}</label><input class="field" id="t-due-date" type="date" data-tool="due" data-field="date" value="${esc(c.date||'')}"></div>
+      ${m==='lmp'?stepper('due','len','Average cycle length','Days. 28 is a common starting point.'):''}
+    </div>
+    <div class="card a-res" id="toolResult">${dueResult()}</div>
+  </div>`;
+}
+
+/* ----- BMI ----- */
+function bmiResult(){
+  const c=tc('bmi'), imp=c.unit==='imperial', asian=!!c.asian;
+  let h,w;
+  if(imp){h=((parseFloat(c.ft)||0)*12+(parseFloat(c.inch)||0))*0.0254;w=(parseFloat(c.lb)||0)*0.45359237}
+  else{h=(parseFloat(c.cm)||0)/100;w=parseFloat(c.kg)||0}
+  if(!h&&!w) return `<div class="empty"><p>Enter your height and weight to see your BMI.</p></div>`;
+  if(h<1||h>2.3||w<25||w>300) return `<div class="empty"><p>Check your height and weight. They look outside the usual range for this calculator.</p></div>`;
+  const bmi=w/(h*h), cut=asian?[18.5,23,25]:[18.5,25,30];
+  const cat=bmi<cut[0]?0:bmi<cut[1]?1:bmi<cut[2]?2:3;
+  const names=['Below the healthy range','Within the healthy range','Above the healthy range','Well above the healthy range'];
+  const lo=18.5*h*h, hi=(cut[1]-0.1)*h*h;
+  const rng=imp?Math.round(lo*2.20462)+' to '+Math.round(hi*2.20462)+' lb':Math.round(lo)+' to '+Math.round(hi)+' kg';
+  const b=[15].concat(cut,[40]), cols=['var(--mist)','#BFE6D2','var(--lilac)','var(--lavender)'];
+  const segs=cols.map((col,i)=>`<i style="width:${(b[i+1]-b[i])/25*100}%;background:${col}"></i>`).join('');
+  const ticks=cut.map(x=>`<span style="left:${(x-15)/25*100}%">${x}</span>`).join('');
+  const pin=clamp((bmi-15)/25*100,0,100);
+  return `<div class="res-grid">
+    <div class="rt hl"><small>Your BMI</small><b>${bmi.toFixed(1)}</b><span>${names[cat]}</span></div>
+    <div class="rt"><small>Ranges used</small><b style="font-size:1.05rem">${asian?'South Asian':'WHO standard'}</b></div>
+    <div class="rt wide"><small>Weight range for a BMI in the healthy range, at your height</small><b>${rng}</b></div>
+  </div>
+  <div class="bmi" role="img" aria-label="BMI ${bmi.toFixed(1)} on a scale from 15 to 40"><div class="bar">${segs}<u style="left:${pin}%"></u></div><div class="ticks">${ticks}</div></div>
+  <p class="note">A BMI cannot tell you how healthy you are. Muscle, frame size, age, pregnancy, PCOS, thyroid conditions and many other things matter. If you have questions about your weight, a doctor can help without judgement.</p>`;
+}
+function bmiBody(){
+  const c=tc('bmi'), imp=c.unit==='imperial';
+  const f=(label,ph,field)=>`<div class="form-row"><label for="t-bmi-${field}">${label}</label><input class="field" id="t-bmi-${field}" type="number" step="any" min="0" inputmode="decimal" placeholder="${ph}" data-tool="bmi" data-field="${field}" value="${esc(c[field]||'')}"></div>`;
+  return `<div class="wrap tool-layout">
+    <div class="card a-form">
+      <div class="chips" role="group" aria-label="Units" style="margin-bottom:1rem"><button type="button" class="chip" data-action="t-unit" data-id="metric" aria-pressed="${!imp}">Kilograms and cm</button><button type="button" class="chip" data-action="t-unit" data-id="imperial" aria-pressed="${imp}">Pounds and feet</button></div>
+      ${imp?`<div class="two-in">${f('Height (feet)','5','ft')}${f('Inches','4','inch')}</div>${f('Weight (pounds)','132','lb')}`:`${f('Height (cm)','160','cm')}${f('Weight (kg)','60','kg')}`}
+      <label class="switch" style="margin:.4rem 0 0"><input type="checkbox" id="t-bmi-asian" data-tool="bmi" data-field="asian"${c.asian?' checked':''}><span class="tr"></span><span><b>Use South Asian ranges</b><span class="hint">Lower cut-offs are used for people of South Asian origin.</span></span></label>
+    </div>
+    <div class="card a-res" id="toolResult">${bmiResult()}</div>
+  </div>`;
+}
+
+/* ----- pelvic floor timer ----- */
+let PT=null;
+function ptCfg(){return {hold:clamp(+cv('pelvic','hold')||5,2,10),reps:clamp(+cv('pelvic','reps')||8,3,15)}}
+function ptRelease(){try{if(PT&&PT.lock)PT.lock.release()}catch(e){}if(PT)PT.lock=null}
+function stopPT(){if(PT){clearInterval(PT.timer);ptRelease();PT=null}}
+function ptInit(){stopPT();PT={phase:'idle',left:0,rep:0,running:false,timer:null,c:ptCfg(),lock:null}}
+function ptPaint(){
+  if(!PT) return;
+  const circ=$('#ptCircle'); if(!circ) return;
+  const {phase,left,rep,c,running}=PT;
+  const txt={idle:'Ready when you are',ready:'Get comfortable',squeeze:'Squeeze and lift',relax:'Relax fully',done:'Well done'}[phase];
+  circ.style.transitionDuration=(phase==='squeeze'||phase==='relax')?c.hold+'s':'.4s';
+  circ.classList.toggle('squeeze',phase==='squeeze');
+  $('#ptTxt').textContent=txt;
+  $('#ptNum').textContent=(phase==='idle'||phase==='done')?'':left;
+  $('#ptRep').textContent=phase==='idle'?c.reps+' reps. Squeeze '+c.hold+' seconds, rest '+c.hold+' seconds. About '+Math.ceil((3+c.reps*c.hold*2)/60)+' min.':phase==='done'?'You did '+c.reps+' reps.':'Rep '+rep+' of '+c.reps;
+  $('#ptGo').textContent=running?'Pause':(phase==='idle'?'Start':phase==='done'?'Start again':'Resume');
+  const live=$('#ptLive'); if(live&&live.textContent!==txt) live.textContent=txt;
+}
+function ptTick(){
+  PT.left--;
+  if(PT.left>0){ptPaint();return}
+  if(PT.phase==='ready'){PT.phase='squeeze';PT.left=PT.c.hold}
+  else if(PT.phase==='squeeze'){PT.phase='relax';PT.left=PT.c.hold}
+  else if(PT.phase==='relax'){
+    if(PT.rep>=PT.c.reps){PT.phase='done';PT.running=false;clearInterval(PT.timer);PT.timer=null;ptRelease()}
+    else{PT.rep++;PT.phase='squeeze';PT.left=PT.c.hold}
+  }
+  ptPaint();
+}
+function ptGo(){
+  if(!PT) ptInit();
+  if(PT.running){PT.running=false;clearInterval(PT.timer);PT.timer=null;ptRelease();ptPaint();return}
+  if(PT.phase==='idle'||PT.phase==='done'){PT.c=ptCfg();PT.phase='ready';PT.left=3;PT.rep=1}
+  PT.running=true;
+  clearInterval(PT.timer);PT.timer=setInterval(ptTick,1000);
+  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(l=>{if(PT)PT.lock=l;else l.release()}).catch(()=>{})}catch(e){}
+  ptPaint();
+}
+function pelvicBody(){
+  return `<div class="wrap tool-layout">
+    <div class="card a-form">
+      ${stepper('pelvic','hold','Squeeze for (seconds)','Start short. You can build up as it gets easier. You will rest for the same time.')}
+      ${stepper('pelvic','reps','Repeats','Number of squeezes in one set.')}
+    </div>
+    <div class="card a-res pt">
+      <div class="pt-wrap"><div class="pt-circle" id="ptCircle"></div><div class="pt-txt"><b id="ptTxt"></b><span id="ptNum"></span></div></div>
+      <p class="muted" id="ptRep" style="text-align:center;margin-bottom:1rem"></p>
+      <div class="ans-act" style="justify-content:center"><button type="button" class="btn btn-primary" id="ptGo" data-action="t-pt-go">Start</button><button type="button" class="btn btn-ghost" data-action="t-pt-reset">Reset</button></div>
+      <p class="sr" id="ptLive" aria-live="polite"></p>
+    </div>
+    <div class="card soft a-log"><h3>How to do it</h3><ul>
+      <li>Sit or lie comfortably. Breathe normally.</li>
+      <li>Squeeze and lift the muscles you would use to stop passing wind or to stop urine.</li>
+      <li>Keep your thighs, buttocks and tummy relaxed. Do not hold your breath.</li>
+      <li>Relax fully between squeezes. Do not practise by stopping urine mid-flow.</li>
+    </ul></div>
+  </div>`;
+}
+
+/* ----- challenges ----- */
+function chalHTML(){
+  const cs=tc('challenges');
+  return `<div class="side">`+CHALLENGES.map(ch=>{
+    const st=cs[ch.id];
+    if(!st) return `<div class="card"><h3>${esc(ch.name)}</h3><p class="muted" style="font-size:.95rem;margin-bottom:.8rem">${esc(ch.task)}</p><button class="btn btn-primary btn-sm" data-action="t-chal-start" data-id="${ch.id}">Start this challenge</button></div>`;
+    const n=st.done.length, fin=n>=ch.days;
+    const days=[...Array(ch.days)].map((_,i)=>{const d=i+1,on=st.done.includes(d);return `<button type="button" data-action="t-day" data-id="${ch.id}" data-day="${d}" aria-pressed="${on}" aria-label="Day ${d}">${d}</button>`}).join('');
+    return `<div class="card"><div class="ans-h" style="justify-content:space-between"><h3 style="margin:0">${esc(ch.name)}</h3><span class="badge">${n} of ${ch.days} days</span></div>
+      <p class="muted" style="font-size:.95rem;margin:.5rem 0 .8rem">${esc(ch.task)}</p>
+      <div class="prog"><i style="width:${Math.round(n/ch.days*100)}%"></i></div>
+      <div class="days" role="group" aria-label="${esc(ch.name)} days">${days}</div>
+      <p class="hint" style="margin:.7rem 0">${fin?'You finished. Well done. Keep whatever worked for you.':'Tap a day when you have done it. Missed a day? That is fine. Carry on from where you are.'}</p>
+      <button class="btn btn-ghost btn-sm" data-action="t-chal-leave" data-id="${ch.id}">Leave this challenge</button></div>`;
+  }).join('')+`</div>`;
+}
+
+/* ----- views ----- */
+function viewTools(){
+  if(state.tool&&TMAP[state.tool]) return viewTool(state.tool);
+  return seg()+`<section class="wrap page-h"><p class="eyebrow">Tools</p><h1>Simple tools, <em>made easy</em></h1><p>Calculators and trackers that work right here. No sign-up, and nothing leaves your device.</p></section>
+  <div class="wrap"><div class="toolgrid">${TOOLS.map(t=>`<button class="tile" data-action="tool" data-id="${t.id}" style="--tint:${t.tint}"><span class="ico">${icon(t.icon)}</span><h3>${esc(t.name)}</h3><p>${esc(t.blurb)}</p><span class="n">Open</span></button>`).join('')}</div>
+  <p class="hint" style="margin-top:1.2rem">These tools give estimates for information only. They do not replace advice from your doctor.</p></div>`;
+}
+function viewTool(id){
+  const t=TMAP[id];
+  const head=`<div class="wrap" style="padding-top:1rem"><button class="link" data-action="tools-hub">&larr; All tools</button></div>
+  <section class="wrap page-h" style="padding-block:.4rem 1rem"><p class="eyebrow">Tool</p><h1>${esc(t.name)}</h1><p>${esc(t.blurb)}</p></section>`;
+  const body=id==='cycle'?cycleBody():id==='due'?dueBody():id==='bmi'?bmiBody():id==='pelvic'?pelvicBody():`<div class="wrap" id="toolBody">${chalHTML()}</div>`;
+  return head+body+`<div class="wrap" style="margin-top:1rem"><p class="hint">${esc(TOOLNOTE[id])}</p></div>`;
+}
+const RES={cycle:cycleResult,due:dueResult,bmi:bmiResult};
+function toolRefresh(t){const el=$('#toolResult');if(el&&RES[t])el.innerHTML=RES[t]()}
+function afterTool(t){if(t==='pelvic'){ptInit();ptPaint()}else toolRefresh(t)}
+
+/* ----- tool events ----- */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-action^="t-"],[data-action="tool"],[data-action="tools-hub"]'); if(!el) return;
+  const a=el.dataset.action, id=el.dataset.id, tool=el.dataset.tool;
+  if(a==='tool') go('tools',id);
+  else if(a==='tools-hub') go('tools');
+  else if(a==='t-step'){
+    const f=el.dataset.field, r=STEP[tool][f];
+    const v=clamp((+cv(tool,f)||r[2])+(+el.dataset.d),r[0],r[1]);
+    tc(tool)[f]=v; saveProf();
+    const inp=$('#t-'+tool+'-'+f); if(inp) inp.value=v;
+    afterTool(tool);
+  }
+  else if(a==='t-example'){
+    const c=tc(tool);
+    if(tool==='cycle') c.last=dkey(addD(todayD(),-12));
+    else c.date=dkey(addD(todayD(),(c.method==='conception')?-56:-70));
+    saveProf(); render();
+  }
+  else if(a==='t-pick'){
+    tc('cycle').last=el.dataset.date; saveProf();
+    const inp=$('#t-cycle-last'); if(inp) inp.value=el.dataset.date;
+    toolRefresh('cycle');
+    const b=$(`[data-action="t-pick"][data-date="${el.dataset.date}"]`); if(b) b.focus();
+  }
+  else if(a==='t-cal'){
+    const cal=state.cal||(state.cal={y:todayD().getFullYear(),m:todayD().getMonth()});
+    const d=new Date(cal.y,cal.m+(+el.dataset.d),1);
+    state.cal={y:d.getFullYear(),m:d.getMonth()};
+    toolRefresh('cycle');
+    const b=$(`[data-action="t-cal"][data-d="${el.dataset.d}"]`); if(b) b.focus();
+  }
+  else if(a==='t-log'){
+    const last=tc('cycle').last; if(!pd(last)) return;
+    if(!prof.periods.includes(last)) prof.periods=prof.periods.concat(last).sort().reverse().slice(0,12);
+    saveProf(); $('#cycleLog').innerHTML=logHTML(); toolRefresh('cycle');
+  }
+  else if(a==='t-rmlog'){
+    prof.periods=prof.periods.filter(s=>s!==el.dataset.date); saveProf();
+    $('#cycleLog').innerHTML=logHTML(); toolRefresh('cycle');
+  }
+  else if(a==='t-useavg'){
+    tc('cycle').len=+el.dataset.avg; saveProf();
+    const inp=$('#t-cycle-len'); if(inp) inp.value=el.dataset.avg;
+    toolRefresh('cycle');
+  }
+  else if(a==='t-unit'){ tc('bmi').unit=id; saveProf(); render(); const b=$(`[data-action="t-unit"][data-id="${id}"]`); if(b) b.focus(); }
+  else if(a==='t-pt-go') ptGo();
+  else if(a==='t-pt-reset'){ ptInit(); ptPaint(); }
+  else if(a==='t-chal-start'){ tc('challenges')[id]={done:[]}; saveProf(); $('#toolBody').innerHTML=chalHTML(); }
+  else if(a==='t-chal-leave'){ delete tc('challenges')[id]; saveProf(); $('#toolBody').innerHTML=chalHTML(); }
+  else if(a==='t-day'){
+    const st=tc('challenges')[id]; if(!st) return;
+    const d=+el.dataset.day, i=st.done.indexOf(d);
+    if(i>=0) st.done.splice(i,1); else st.done.push(d);
+    saveProf(); $('#toolBody').innerHTML=chalHTML();
+    const b=$(`[data-action="t-day"][data-id="${id}"][data-day="${d}"]`); if(b) b.focus();
+  }
+});
+function toolInput(e){
+  const t=e.target; if(!t.dataset||!t.dataset.tool) return;
+  const tool=t.dataset.tool, f=t.dataset.field;
+  tc(tool)[f]=t.type==='checkbox'?t.checked:t.value; saveProf();
+  if(f==='method'){ if(e.type==='change') render(); return; }
+  afterTool(tool);
+}
+document.addEventListener('input',toolInput);
+document.addEventListener('change',toolInput);
+
 /* ================= routing ================= */
-function parse(){const h=(location.hash||'').replace('#','');return ROUTES.includes(h)?h:'home'}
+function parse(){
+  const h=(location.hash||'').replace('#','');
+  if(h==='tools'||h.indexOf('tools-')===0){state.tool=TMAP[h.slice(6)]?h.slice(6):null;return 'tools'}
+  state.tool=null;
+  return ROUTES.includes(h)?h:'home';
+}
 function render(){
-  const v={home:viewHome,explore:viewExplore,ask:viewAsk,community:viewCommunity,profile:viewProfile}[state.route];
+  stopPT();
+  const v={home:viewHome,explore:viewExplore,tools:viewTools,ask:viewAsk,community:viewCommunity,profile:viewProfile}[state.route];
   app.innerHTML=v();
-  $$('[data-route]').forEach(a=>{a.dataset.route===state.route?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
+  const cur=state.route==='tools'?'explore':state.route;
+  $$('[data-route]').forEach(a=>{const r=a.hasAttribute('data-seg')?state.route:cur;a.dataset.route===r?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
   if(state.route==='ask')renderThread();
   if(state.route==='community')renderFeed();
   if(state.route==='explore')renderExplore();
+  if(state.route==='tools'&&state.tool==='pelvic'){ptInit();ptPaint()}
 }
-function go(r){
-  state.route=r;
-  try{if(location.hash!=='#'+r)location.hash=r}catch(e){}
+function go(r,tool){
+  state.route=r; state.tool=r==='tools'?(tool||null):null;
+  const h=(r==='tools'&&state.tool)?'tools-'+state.tool:r;
+  try{if(location.hash!=='#'+h)location.hash=h}catch(e){}
   render(); window.scrollTo(0,0);
 }
-window.addEventListener('hashchange',()=>{const r=parse();if(r!==state.route){state.route=r;render();window.scrollTo(0,0)}});
+window.addEventListener('hashchange',()=>{const r0=state.route,t0=state.tool,r=parse();if(r!==r0||state.tool!==t0){state.route=r;render();window.scrollTo(0,0)}});
 
 /* ================= video player ================= */
 const modal=$('#modal');
